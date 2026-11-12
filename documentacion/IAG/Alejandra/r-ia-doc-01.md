@@ -7,7 +7,8 @@
 
 # 1. Breve descripción de uso
 
-Describir la intención general de las consultas.
+Propuestas de requerimientos funcionales y no funcionales, entidades, atributos y relaciones de la base de datos. Propuestas de mejora y areas de oportunidad
+Se revisaron y adaptaron las propuestas de acuerdo con las necesidades de nuestro sistema, definiendo las tablas, los roles, las funcionalidades y las reglas de negocio.
 
 ---
 
@@ -25,4 +26,5 @@ Describir la intención general de las consultas.
 
 ## Observaciones adicionales
 
-Agregar cualquier comentario explicativo relevante.
+Nos ayudo a definir de manera más clara nuestros requerimientos, y el alcance que puede tener nuestro proyecto.
+también nos guio con cosas como lo siguiente que teniamos que hacer y las cosas que faltaban por especificar
