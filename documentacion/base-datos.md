@@ -24,7 +24,7 @@ El sistema está destinado a un solo refugio.
 Define los tipos de usuario del sistema.
 
 | Campo     | Tipo sugerido | Restricciones |
-| id_rol    | INT           | Clave primaria |
+| id_rol    | BIGINT           | Clave primaria |
 | nombre_rol| VARCHAR(30)   | Obligatorio y único |
 
 Valores iniciales: `ADOPTANTE` y `ADMINISTRADOR`.
@@ -34,8 +34,8 @@ Valores iniciales: `ADOPTANTE` y `ADMINISTRADOR`.
 Almacena las cuentas de las personas que utilizan Huellitas.
 
 | Campo      | Tipo sugerido | Restricciones                  |
-| id_usuario | INT           | Clave primaria                 |
-| id_rol     | INT           | Clave foránea a `roles.id_rol` |
+| id_usuario | BIGINT           | Clave primaria                 |
+| id_rol     | BIGINT           | Clave foránea a `roles.id_rol` |
 | nombres    | VARCHAR(100)  | Obligatorio                    |
 | apellidos  | VARCHAR(100)  | Obligatorio                    |
 | correo     | VARCHAR(150)  | Obligatorio y único            |
@@ -52,7 +52,7 @@ La contraseña se almacenará como hash, nunca como texto legible. El administra
 Almacena las mascotas registradas y publicadas por el refugio.
 
 | Campo                      | Tipo sugerido | Restricciones  |
-| id_mascota                 | INT           | Clave primaria |
+| id_mascota                 | BIGINT           | Clave primaria |
 | nombre                     | VARCHAR(80)   | Obligatorio    |
 | especie                    | VARCHAR(40)   | Obligatorio    |
 | raza                       | VARCHAR(80)   | Opcional       |
@@ -71,10 +71,10 @@ Estados iniciales: `DISPONIBLE`, `EN_PROCESO`, `ADOPTADA` e `INACTIVA`.
 Registra las solicitudes enviadas por los adoptantes y la decisión del administrador.
 
 | Campo         | Tipo sugerido | Restricciones  |
-| id_solicitud  | INT           | Clave primaria |
-| id_mascota    | INT           | Clave foránea a `mascotas.id_mascota` |
-| id_adoptante  | INT           | Clave foránea a `usuarios.id_usuario` |
-| id_revisor    | INT           | Clave foránea opcional a `usuarios.id_usuario` |
+| id_solicitud  | BIGINT           | Clave primaria |
+| id_mascota    | BIGINT           | Clave foránea a `mascotas.id_mascota` |
+| id_adoptante  | BIGINT           | Clave foránea a `usuarios.id_usuario` |
+| id_revisor    | BIGINT           | Clave foránea opcional a `usuarios.id_usuario` |
 | fecha_solicitud | DATETIME    | Obligatorio    |
 | estado        | VARCHAR(30)   | Obligatorio    |
 | mensaje       | TEXT          | Opcional       |
@@ -87,8 +87,8 @@ Estados iniciales: `PENDIENTE`, `APROBADA`, `RECHAZADA` y `CANCELADA`. El campo 
 Registra las adopciones que se concretan a partir de solicitudes aprobadas.
 
 | Campo          | Tipo sugerido | Restricciones    |
-| id_adopcion    | INT           | Clave primaria   |
-| id_solicitud   | INT           | Clave foránea única a `solicitudes_adopcion.id_solicitud` |
+| id_adopcion    | BIGINT           | Clave primaria   |
+| id_solicitud   | BIGINT           | Clave foránea única a `solicitudes_adopcion.id_solicitud` |
 | fecha_adopcion | DATE          | Obligatorio      |
 | estado         | VARCHAR(20)   | Obligatorio      |
 | observaciones  | TEXT          | Opcional         |
@@ -101,8 +101,8 @@ Mantiene un expediente digital individual por mascota.
 
 | Campo                    | Tipo sugerido  | Restricciones   |
 
-| id_expediente            | INT            | Clave primaria  |
-| id_mascota               | INT            | Clave foránea única a `mascotas.id_mascota` |
+| id_expediente            | BIGINT            | Clave primaria  |
+| id_mascota               | BIGINT            | Clave foránea única a `mascotas.id_mascota` |
 | fecha_creacion           | DATETIME       | Obligatorio     |
 | observaciones_generales  | TEXT           | Opcional        |
 
@@ -114,9 +114,9 @@ Almacena vacunas, consultas veterinarias, desparasitaciones, tratamientos y regi
 
 | Campo                | Tipo sugerido | Restricciones |
 
-| id_registro          | INT            | Clave primaria    |
-| id_expediente        | INT            | Clave foránea a `expedientes.id_expediente` |
-| id_usuario_registro  | INT            | Clave foránea a `usuarios.id_usuario` |
+| id_registro          | BIGINT            | Clave primaria    |
+| id_expediente        | BIGINT            | Clave foránea a `expedientes.id_expediente` |
+| id_usuario_registro  | BIGINT            | Clave foránea a `usuarios.id_usuario` |
 | tipo                 | VARCHAR(30)    | Obligatorio       |
 | nombre               | VARCHAR(120)   | Obligatorio       |
 | fecha_evento         | DATE           | Obligatorio       |
