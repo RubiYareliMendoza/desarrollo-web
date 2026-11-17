@@ -3,6 +3,7 @@ package com.huellitas.backend.controller;
 import com.huellitas.backend.dto.UsuarioRegistroDTO;
 import com.huellitas.backend.dto.UsuarioRespuestaDTO;
 import com.huellitas.backend.service.UsuarioService;
+import com.huellitas.backend.dto.UsuarioActualizarDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,12 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioRespuestaDTO>> listarUsuarios() {
-        return ResponseEntity.ok(usuarioService.listarUsuarios());
+    public ResponseEntity<List<UsuarioRespuestaDTO>> listarUsuarios(
+            @RequestParam(required = false) Boolean activo,
+            @RequestParam(required = false) String rol) {
+
+        return ResponseEntity.ok(
+                usuarioService.listarUsuarios(activo, rol));
     }
 
     @PostMapping
@@ -36,5 +41,19 @@ public class UsuarioController {
     public ResponseEntity<UsuarioRespuestaDTO> buscarUsuarioPorId(
             @PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorId(id));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioRespuestaDTO> actualizarUsuario(
+            @PathVariable Long id,
+            @Valid @RequestBody UsuarioActualizarDTO datos) {
+
+        return ResponseEntity.ok(
+                usuarioService.actualizarUsuario(id, datos));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desactivarUsuario(@PathVariable Long id) {
+        usuarioService.desactivarUsuario(id);
+        return ResponseEntity.noContent().build();
     }
 }
