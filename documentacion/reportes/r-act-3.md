@@ -1,15 +1,15 @@
 # Reporte de Avance del Proyecto
 
-**Equipo:**  
-**Fecha:**  
-**Número de reporte:**  
-**Repositorio GitHub:**  
+**Equipo:**  02
+**Fecha:**  16 de noviembre
+**Número de reporte:**  03
+**Repositorio GitHub:**  https://github.com/RubiYareliMendoza/desarrollo-web.git
 
 ---
 
 # 1. Actividades realizadas
 
-Describir las actividades desarrolladas desde el último reporte.
+Durante esta tercera etapa continuamos desarrollando el backend del sistema. Implementamos operaciones PUT y DELETE, filtros de búsqueda y validaciones HTTP. En el módulo de mascotas agregamos la actualización, desactivación y búsqueda mediante filtros individuales y combinados. También avanzamos en el módulo de usuarios, incorporando funciones de actualización y filtros. Finalmente, realizamos pruebas con curl y MySQL para comprobar el funcionamiento de las operaciones.
 
 ---
 
@@ -17,23 +17,23 @@ Describir las actividades desarrolladas desde el último reporte.
 
 | Actividad | Integrante responsable | Enlace a commit |
 |------------|------------------------|-----------------|
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+|Implementación de PUT, DELETE y filtros de mascotas |Rubi |a09bb959dff7023211052f3d8ea1686a1596727f |
+|Actualización y filtros del módulo de usuarios |Alejandra |7f1cb97a8eaea998380a0c481b69fe4b8fcc283e |
+|Validación de respuestas HTTP |Rubi y Alejandra | |
+|Comprobación de persistencia |Rubi y Alejandra | |
+|Documentación |Rubi | |
 
 ---
 
 # 3. Problemas encontrados
 
-Describir los problemas técnicos encontrados y cómo fueron solucionados.
+Durante esta etapa tuvimos algunas dificultades al implementar y validar las nuevas operaciones del backend, principalmente al manejar las actualizaciones, los filtros y las respuestas HTTP. Para solucionarlas, revisamos el código y realizamos ajustes en los controladores, servicios y repositorios de ambos módulos.
 
 ---
 
 # 4. Avance funcional
 
-Indicar qué funcionalidades ya se encuentran operativas y cuáles están pendientes.
+En esta tercera etapa, el backend del sistema presenta avances en los módulos de mascotas y usuarios. Se incorporaron funciones para actualizar información y realizar búsquedas mediante filtros. Además, en el módulo de mascotas se implementó la desactivación lógica mediante DELETE. También se mejoraron las validaciones y se realizaron pruebas para comprobar las respuestas HTTP y el almacenamiento de los cambios en MySQL.
 
 ---
 
@@ -41,11 +41,11 @@ Indicar qué funcionalidades ya se encuentran operativas y cuáles están pendie
 
 Documentar el uso de herramientas de inteligencia artificial durante el desarrollo del proyecto.
 
-- **Herramienta utilizada:**
-- **Actividad para la que se utilizó:**
-- **Código o contenido generado:**
-- **Modificaciones realizadas por el equipo:**
-- **Forma en que se verificó el resultado:**
+- **Herramienta utilizada:** ChatGPT.
+- **Actividad para la que se utilizó:** Apoyo en la implementación de filtros de búsqueda y validaciones del backend.
+- **Código o contenido generado:** Ejemplos de código Java, consultas y comandos para realizar pruebas.
+- **Modificaciones realizadas por el equipo:** Revisamos y adaptamos las sugerencias a la estructura de nuestro proyecto y a las necesidades de los módulos de mascotas y usuarios.
+- **Forma en que se verificó el resultado:** Mediante la compilación del backend, pruebas de las API y consultas en MySQL para comprobar los resultados.
 
 > Si no se utilizó IA, indicarlo expresamente.
 
@@ -55,10 +55,8 @@ Documentar el uso de herramientas de inteligencia artificial durante el desarrol
 
 Describir brevemente la contribución de cada integrante.
 
-- **Integrante 1:**
-- **Integrante 2:**
-- **Integrante 3:**
-- **Integrante 4:**
+- **Integrante 1 (Rubi):** Trabajó en el módulo de mascotas, implementando las operaciones PUT y DELETE, filtros de búsqueda y validaciones. También realizó pruebas para comprobar el funcionamiento y la persistencia de los datos.
+- **Integrante 2 (Alejandra):**  Trabajó en el módulo de usuarios, incorporando funciones de actualización y filtros de búsqueda, además de realizar ajustes en los componentes necesarios para estas operaciones.También realizó pruebas para comprobar el funcionamiento y la persistencia de los datos.
 
 ---
 
@@ -66,14 +64,14 @@ Describir brevemente la contribución de cada integrante.
 
 Indicar las tareas que se realizarán antes del siguiente reporte.
 
-- Actividad 1
-- Actividad 2
-- Actividad 3
-- Actividad 4
-- Actividad 5
+- Actividad 1: Integrar y verificar el funcionamiento de los módulos de mascotas y usuarios.
+- Actividad 2: Completar las funcionalidades relacionadas con las solicitudes de adopción y su seguimiento.
+- Actividad 3: Conectar el frontend con el backend mediante la API.
+- Actividad 4: Realizar pruebas de integración y corregir los errores encontrados.
+- Actividad 5: Actualizar la documentación y preparar la siguiente versión del proyecto.
 
 ---
 
 ## Observaciones adicionales
 
-Agregar cualquier comentario, acuerdo, decisión técnica o evidencia complementaria relevante para el proyecto.
+Durante esta tercera etapa logramos avanzar en las funcionalidades del backend y mejorar el manejo de la información de mascotas y usuarios. 
