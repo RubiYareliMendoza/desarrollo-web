@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
+import com.huellitas.backend.dto.UsuarioActualizarDTO;
 @Service
 public class UsuarioService {
 
@@ -29,10 +29,31 @@ public class UsuarioService {
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
-    @Transactional(readOnly = true)
-    public List<UsuarioRespuestaDTO> listarUsuarios() {
-        return usuarioRepository.findAll()
-                .stream()
+  @Transactional(readOnly = true)
+    public List<UsuarioRespuestaDTO> listarUsuarios(
+            Boolean activo,
+            String rol) {
+
+        boolean filtrarPorRol = rol != null && !rol.isBlank();
+        String rolNormalizado = filtrarPorRol
+                ? rol.trim().toUpperCase()
+                : null;
+
+        List<Usuario> usuarios;
+
+        if (activo != null && filtrarPorRol) {
+            usuarios = usuarioRepository
+                    .findByActivoAndRol_NombreRol(activo, rolNormalizado);
+        } else if (activo != null) {
+            usuarios = usuarioRepository.findByActivo(activo);
+        } else if (filtrarPorRol) {
+            usuarios = usuarioRepository
+                    .findByRol_NombreRol(rolNormalizado);
+        } else {
+            usuarios = usuarioRepository.findAll();
+        }
+
+        return usuarios.stream()
                 .map(this::convertirARespuesta)
                 .toList();
     }
@@ -65,6 +86,36 @@ public class UsuarioService {
         Usuario guardado = usuarioRepository.save(usuario);
         return convertirARespuesta(guardado);
     }
+    @Transactional
+    public UsuarioRespuestaDTO actualizarUsuario(
+            Long id,
+            UsuarioActualizarDTO datos) {
+
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "No se encontró el usuario con ID " + id));
+
+        usuario.setNombres(datos.nombres());
+        usuario.setApellidos(datos.apellidos());
+        usuario.setTelefono(datos.telefono());
+        usuario.setDireccion(datos.direccion());
+
+        Usuario actualizado = usuarioRepository.save(usuario);
+        return convertirARespuesta(actualizado);
+    }
+    @Transactional
+    public void desactivarUsuario(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "No se encontró el usuario con ID " + id));
+
+        usuario.setActivo(false);
+        usuarioRepository.save(usuario);
+    }
+
+
 
     private UsuarioRespuestaDTO convertirARespuesta(Usuario usuario) {
         return new UsuarioRespuestaDTO(
