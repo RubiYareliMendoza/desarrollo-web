@@ -1,0 +1,221 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f5fc;
+    color: #302943;
+}
+
+.encabezado {
+    background-color: #fff;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.encabezado h1 {
+    margin: 0;
+    color: #7654a3;
+    font-size: 28px;
+}
+
+.encabezado nav {
+    display: flex;
+    gap: 20px;
+}
+
+.encabezado a {
+    color: #7654a3;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.encabezado a:hover,
+.encabezado a[aria-current="page"] {
+    color: #4e356f;
+    text-decoration: underline;
+}
+
+main {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 35px 24px;
+}
+
+.bienvenida {
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.bienvenida h2 {
+    color: #5d4385;
+    font-size: 32px;
+}
+
+.bienvenida p {
+    color: #716b7d;
+    font-size: 17px;
+}
+
+.filtros,
+.registro,
+.catalogo,
+.edicion {
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #5d4385;
+}
+
+.filtros h2,
+.registro h2,
+.catalogo h2,
+.edicion h2 {
+    margin-top: 0;
+}
+
+#form-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+#form-registro,
+#form-edicion {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+label {
+    font-weight: bold;
+}
+
+#form-registro label,
+#form-edicion label {
+    align-self: end;
+}
+
+input,
+select {
+    min-width: 0;
+    padding: 11px;
+    border: 1px solid #d7cde5;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #af94d2;
+}
+
+button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #7956a5;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #634388;
+}
+
+button[type="reset"],
+#cancelar-edicion {
+    background-color: #eae4f3;
+    color: #5d4385;
+}
+
+button[type="reset"]:hover,
+#cancelar-edicion:hover {
+    background-color: #dcd0ec;
+}
+
+#mensaje-registro,
+#mensaje-listado,
+#mensaje-edicion {
+    min-height: 1.4em;
+    color: #5d4385;
+}
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #fff;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e8e1ef;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #eee8f6;
+    color: #50386f;
+}
+
+tbody tr:hover {
+    background-color: #faf8fd;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 25px;
+    background-color: #fff;
+    color: #716b7d;
+    text-align: center;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 700px) {
+    .encabezado {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .bienvenida h2 {
+        font-size: 26px;
+    }
+
+    #form-filtros,
+    #form-registro,
+    #form-edicion {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input,
+    select,
+    button {
+        width: 100%;
+    }
+}

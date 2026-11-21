@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
