@@ -1,0 +1,189 @@
+
+/* Configuración general */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f5fc;
+    color: #302943;
+}
+
+/* Encabezado */
+.encabezado {
+    background-color: #ffffff;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.encabezado h1 {
+    margin: 0;
+    color: #7654a3;
+    font-size: 28px;
+}
+
+.encabezado a {
+    text-decoration: none;
+    color: #7654a3;
+    font-weight: bold;
+}
+
+/* Contenido */
+main {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 35px 24px;
+}
+
+/* Bienvenida */
+.bienvenida {
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.bienvenida h2 {
+    font-size: 34px;
+    color: #5d4385;
+}
+
+.bienvenida p {
+    color: #716b7d;
+    font-size: 17px;
+}
+
+/* Filtros */
+.filtros {
+    background-color: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.filtros h2 {
+    margin-top: 0;
+}
+
+#form-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+input,
+select {
+    padding: 11px;
+    border: 1px solid #d7cde5;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #af94d2;
+}
+
+button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #7956a5;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #634388;
+}
+
+button[type="reset"] {
+    background-color: #eae4f3;
+    color: #5d4385;
+}
+
+/* Catálogo */
+.catalogo h2 {
+    color: #5d4385;
+}
+
+.lista-mascotas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 25px;
+}
+
+/* Tarjetas de mascotas */
+.tarjeta-mascota {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s;
+}
+
+.tarjeta-mascota:hover {
+    transform: translateY(-5px);
+}
+
+.tarjeta-mascota img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.tarjeta-contenido {
+    padding: 18px;
+}
+
+.tarjeta-contenido h3 {
+    color: #5d4385;
+    margin-top: 0;
+}
+
+.tarjeta-contenido p {
+    color: #716b7d;
+    font-size: 14px;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #ffffff;
+    color: #716b7d;
+    margin-top: 40px;
+}
+
+/* Diseño adaptable */
+@media (max-width: 700px) {
+    .encabezado {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .bienvenida h2 {
+        font-size: 26px;
+    }
+
+    #form-filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input,
+    select,
+    button {
+        width: 100%;
+    }
+}
+[hidden] {
+    display: none !important;
+}

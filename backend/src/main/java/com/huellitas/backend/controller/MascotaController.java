@@ -2,7 +2,7 @@ package com.huellitas.backend.controller;
 
 import com.huellitas.backend.model.Mascota;
 import com.huellitas.backend.service.MascotaService;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,7 @@ import java.util.List;
 // Indica que esta clase recibe peticiones HTTP y devuelve respuestas JSON
 @RestController
 @RequestMapping("/api/mascotas")
+@CrossOrigin(origins = {"http://127.0.0.1:3000", "http://localhost:3000"})
 public class MascotaController {
 
     private final MascotaService mascotaService;

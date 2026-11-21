@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PawMach | Catálogo de mascotas</title>
+
+    <link rel="stylesheet" href="css/mascotas.css">
+    <script src="js/mascotas.js" defer></script>
+</head>
+
+<body>
+    <header class="encabezado">
+        <h1>🐾 PawMach</h1>
+        <nav>
+            <a href="mascotas.html">Mascotas</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="bienvenida">
+            <h2>Conoce a nuestros amigos peludos</h2>
+            <p>
+                Explora nuestro catálogo y encuentra
+                a tu próximo compañero.
+            </p>
+        </section>
+
+        <section class="filtros">
+            <h2>Buscar mascotas</h2>
+
+            <form id="form-filtros">
+                <label for="buscar-nombre">Nombre</label>
+                <input
+                    type="text"
+                    id="buscar-nombre"
+                    placeholder="Ej. Luna"
+                >
+
+                <label for="filtro-especie">Especie</label>
+                <select id="filtro-especie">
+                    <option value="">Todas</option>
+                    <option value="Perro">Perro</option>
+                    <option value="Gato">Gato</option>
+                </select>
+
+                <label for="filtro-estado">Estado</label>
+                <select id="filtro-estado">
+                    <option value="">Todos</option>
+                    <option value="DISPONIBLE">Disponible</option>
+                    <option value="EN_PROCESO">En proceso</option>
+                    <option value="ADOPTADA">Adoptada</option>
+                    <option value="INACTIVA">Inactiva</option>
+                </select>
+
+                <button type="submit">Buscar</button>
+                <button type="reset">Limpiar filtros</button>
+            </form>
+        </section>
+
+<section class="registro">
+    <h2>Registrar nueva mascota</h2>
+    <p>Completa los datos para agregar una mascota al catálogo.</p>
+
+    <form id="form-registro">
+
+        <label for="registro-nombre">Nombre *</label>
+        <input type="text" id="registro-nombre" required>
+
+        <label for="registro-especie">Especie *</label>
+        <select id="registro-especie" required>
+            <option value="">Selecciona una especie</option>
+            <option value="Perro">Perro</option>
+            <option value="Gato">Gato</option>
+        </select>
+
+        <label for="registro-raza">Raza</label>
+        <input type="text" id="registro-raza">
+
+        <label for="registro-sexo">Sexo</label>
+        <select id="registro-sexo">
+            <option value="">Selecciona una opción</option>
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+        </select>
+
+        <label for="registro-tamano">Tamaño</label>
+        <select id="registro-tamano">
+            <option value="">Selecciona el tamaño</option>
+            <option value="Pequeño">Pequeño</option>
+            <option value="Mediano">Mediano</option>
+            <option value="Grande">Grande</option>
+        </select>
+
+        <label for="registro-descripcion">Descripción</label>
+        <textarea
+            id="registro-descripcion"
+            rows="3"
+            placeholder="Describe brevemente a la mascota"
+        ></textarea>
+
+        <button type="submit">Registrar mascota</button>
+    </form>
+
+    <p id="mensaje-registro" role="status"></p>
+</section>
+
+
+        <section class="catalogo">
+            <h2>Mascotas registradas</h2>
+
+            <p id="mensaje-catalogo" role="status">
+                Aquí aparecerán las mascotas registradas.
+            </p>
+
+            <div id="lista-mascotas" class="lista-mascotas">
+                <!-- JavaScript agregará las tarjetas aquí -->
+            </div>
+        </section>
+
+<section class="edicion" id="seccion-edicion" hidden>
+    <h2>Editar mascota</h2>
+
+    <form id="form-edicion">
+        <input type="hidden" id="editar-id">
+
+        <label for="editar-nombre">Nombre *</label>
+        <input type="text" id="editar-nombre" required>
+
+        <label for="editar-especie">Especie *</label>
+        <select id="editar-especie" required>
+            <option value="Perro">Perro</option>
+            <option value="Gato">Gato</option>
+        </select>
+
+        <label for="editar-raza">Raza</label>
+        <input type="text" id="editar-raza">
+
+        <label for="editar-sexo">Sexo</label>
+        <select id="editar-sexo">
+            <option value="">Selecciona una opción</option>
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+        </select>
+
+        <label for="editar-tamano">Tamaño</label>
+        <select id="editar-tamano">
+            <option value="">Selecciona un tamaño</option>
+            <option value="Pequeño">Pequeño</option>
+            <option value="Mediano">Mediano</option>
+            <option value="Grande">Grande</option>
+        </select>
+
+        <label for="editar-descripcion">Descripción</label>
+        <textarea id="editar-descripcion" rows="3"></textarea>
+
+        <button type="submit">Guardar cambios</button>
+        <button type="button" id="cancelar-edicion">
+            Cancelar
+        </button>
+    </form>
+
+    <p id="mensaje-edicion" role="status"></p>
+</section>
+
+    </main>
+
+    <footer>
+        <p>Huellitas - Sistema de adopción de mascotas</p>
+    </footer>
+</body>
+</html>
