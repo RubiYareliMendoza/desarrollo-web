@@ -1,174 +1,547 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PawMach | Catálogo de mascotas</title>
 
+    <!-- Estilos de la página -->
     <link rel="stylesheet" href="css/mascotas.css">
+
+    <!-- Funcionalidades del catálogo -->
     <script src="js/mascotas.js" defer></script>
 </head>
 
 <body>
+
+    <!-- =========================================
+         1. ENCABEZADO
+    ========================================= -->
+
     <header class="encabezado">
         <h1>🐾 PawMach</h1>
-        <nav>
+
+        <nav aria-label="Navegación principal">
             <a href="mascotas.html">Mascotas</a>
         </nav>
     </header>
 
+
     <main>
+
+        <!-- =========================================
+             2. BIENVENIDA
+        ========================================= -->
+
         <section class="bienvenida">
             <h2>Conoce a nuestros amigos peludos</h2>
+
             <p>
                 Explora nuestro catálogo y encuentra
                 a tu próximo compañero.
             </p>
         </section>
 
+
+        <!-- =========================================
+             3. FILTROS DE BÚSQUEDA
+        ========================================= -->
+
         <section class="filtros">
             <h2>Buscar mascotas</h2>
 
-            <form id="form-filtros">
-                <label for="buscar-nombre">Nombre</label>
-                <input
-                    type="text"
-                    id="buscar-nombre"
-                    placeholder="Ej. Luna"
-                >
+            <form id="form-filtros" class="formulario-grid">
 
-                <label for="filtro-especie">Especie</label>
-                <select id="filtro-especie">
-                    <option value="">Todas</option>
-                    <option value="Perro">Perro</option>
-                    <option value="Gato">Gato</option>
-                </select>
+                <!-- Buscar por nombre -->
+                <div class="campo-formulario">
+                    <label for="buscar-nombre">Nombre</label>
 
-                <label for="filtro-estado">Estado</label>
-                <select id="filtro-estado">
-                    <option value="">Todos</option>
-                    <option value="DISPONIBLE">Disponible</option>
-                    <option value="EN_PROCESO">En proceso</option>
-                    <option value="ADOPTADA">Adoptada</option>
-                    <option value="INACTIVA">Inactiva</option>
-                </select>
+                    <input
+                        type="text"
+                        id="buscar-nombre"
+                        placeholder="Ej. Luna"
+                    >
+                </div>
 
-                <button type="submit">Buscar</button>
-                <button type="reset">Limpiar filtros</button>
+                <!-- Filtrar por especie -->
+                <div class="campo-formulario">
+                    <label for="filtro-especie">Especie</label>
+
+                    <select id="filtro-especie">
+                        <option value="">Todas</option>
+                        <option value="Perro">Perro</option>
+                        <option value="Gato">Gato</option>
+                    </select>
+                </div>
+
+                <!-- Filtrar por estado -->
+                <div class="campo-formulario">
+                    <label for="filtro-estado">Estado</label>
+
+                    <select id="filtro-estado">
+                        <option value="">Todos</option>
+                        <option value="DISPONIBLE">Disponible</option>
+                        <option value="EN_PROCESO">En proceso</option>
+                        <option value="ADOPTADA">Adoptada</option>
+                        <option value="INACTIVA">Inactiva</option>
+                    </select>
+                </div>
+
+                <!-- Acciones del buscador -->
+                <div class="acciones-formulario">
+                    <button type="submit">
+                        Buscar
+                    </button>
+
+                    <button type="reset" class="boton-secundario">
+                        Limpiar filtros
+                    </button>
+                </div>
+
             </form>
         </section>
 
-<section class="registro">
-    <h2>Registrar nueva mascota</h2>
-    <p>Completa los datos para agregar una mascota al catálogo.</p>
-
-    <form id="form-registro">
-
-        <label for="registro-nombre">Nombre *</label>
-        <input type="text" id="registro-nombre" required>
-
-        <label for="registro-especie">Especie *</label>
-        <select id="registro-especie" required>
-            <option value="">Selecciona una especie</option>
-            <option value="Perro">Perro</option>
-            <option value="Gato">Gato</option>
-        </select>
-
-        <label for="registro-raza">Raza</label>
-        <input type="text" id="registro-raza">
-
-        <label for="registro-sexo">Sexo</label>
-        <select id="registro-sexo">
-            <option value="">Selecciona una opción</option>
-            <option value="Macho">Macho</option>
-            <option value="Hembra">Hembra</option>
-        </select>
-
-        <label for="registro-tamano">Tamaño</label>
-        <select id="registro-tamano">
-            <option value="">Selecciona el tamaño</option>
-            <option value="Pequeño">Pequeño</option>
-            <option value="Mediano">Mediano</option>
-            <option value="Grande">Grande</option>
-        </select>
-
-        <label for="registro-descripcion">Descripción</label>
-        <textarea
-            id="registro-descripcion"
-            rows="3"
-            placeholder="Describe brevemente a la mascota"
-        ></textarea>
-
-        <button type="submit">Registrar mascota</button>
-    </form>
-
-    <p id="mensaje-registro" role="status"></p>
-</section>
-
+        <!-- =========================================
+             4. CATÁLOGO DE MASCOTAS
+        ========================================= -->
 
         <section class="catalogo">
-            <h2>Mascotas registradas</h2>
+            <div class="encabezado-seccion">
+                <h2>Mascotas registradas</h2>
 
-            <p id="mensaje-catalogo" role="status">
-                Aquí aparecerán las mascotas registradas.
-            </p>
-
-            <div id="lista-mascotas" class="lista-mascotas">
-                <!-- JavaScript agregará las tarjetas aquí -->
+                <p id="mensaje-catalogo" role="status">
+                    Aquí aparecerán las mascotas registradas.
+                </p>
             </div>
+
+            <!-- Las tarjetas se generan desde JavaScript -->
+            <div
+                id="lista-mascotas"
+                class="lista-mascotas"
+            ></div>
         </section>
 
-<section class="edicion" id="seccion-edicion" hidden>
-    <h2>Editar mascota</h2>
+        <!-- =========================================
+             5. REGISTRO DE MASCOTAS
+        ========================================= -->
+        <!-- Acceso al formulario de registro -->
+         <div class="acceso-registro">
 
-    <form id="form-edicion">
-        <input type="hidden" id="editar-id">
+            <!-- Información de la sección -->
+             <div class="acceso-registro-info">
+                <h2>¿Una nueva mascota en PawMach?</h2>
+                <p>Agrega su información para que pueda aparecer en el catálogo.</p>
+            </div>
+            <!-- Botón para mostrar u ocultar el formulario -->
+             <button
+             type="button"
+             id="toggle-registro"
+             aria-controls="seccion-registro"
+             aria-expanded="false"
+             >
+             + Registrar mascota
+            </button>
+        </div>
 
-        <label for="editar-nombre">Nombre *</label>
-        <input type="text" id="editar-nombre" required>
+        <section class="registro" id="seccion-registro" hidden>
+            <div class="encabezado-seccion">
+                <h2>Registrar nueva mascota</h2>
 
-        <label for="editar-especie">Especie *</label>
-        <select id="editar-especie" required>
-            <option value="Perro">Perro</option>
-            <option value="Gato">Gato</option>
-        </select>
+                <p>
+                    Completa los datos para agregar
+                    una mascota al catálogo.
+                </p>
+            </div>
 
-        <label for="editar-raza">Raza</label>
-        <input type="text" id="editar-raza">
+            <form id="form-registro" class="formulario-grid">
 
-        <label for="editar-sexo">Sexo</label>
-        <select id="editar-sexo">
-            <option value="">Selecciona una opción</option>
-            <option value="Macho">Macho</option>
-            <option value="Hembra">Hembra</option>
-        </select>
+                <!-- Nombre -->
+                <div class="campo-formulario">
+                    <label for="registro-nombre">
+                        Nombre *
+                    </label>
 
-        <label for="editar-tamano">Tamaño</label>
-        <select id="editar-tamano">
-            <option value="">Selecciona un tamaño</option>
-            <option value="Pequeño">Pequeño</option>
-            <option value="Mediano">Mediano</option>
-            <option value="Grande">Grande</option>
-        </select>
+                    <input
+                        type="text"
+                        id="registro-nombre"
+                        placeholder="Ej. Luna"
+                        required
+                    >
+                </div>
 
-        <label for="editar-descripcion">Descripción</label>
-        <textarea id="editar-descripcion" rows="3"></textarea>
+                <!-- Especie -->
+                <div class="campo-formulario">
+                    <label for="registro-especie">
+                        Especie *
+                    </label>
 
-        <button type="submit">Guardar cambios</button>
-        <button type="button" id="cancelar-edicion">
-            Cancelar
-        </button>
-    </form>
+                    <select id="registro-especie" required>
+                        <option value="">
+                            Selecciona una especie
+                        </option>
+                        <option value="Perro">Perro</option>
+                        <option value="Gato">Gato</option>
+                    </select>
+                </div>
 
-    <p id="mensaje-edicion" role="status"></p>
-</section>
+                <!-- Raza -->
+                <div class="campo-formulario">
+                    <label for="registro-raza">Raza</label>
+
+                    <input
+                        type="text"
+                        id="registro-raza"
+                        placeholder="Ej. Labrador"
+                    >
+                </div>
+
+                <!-- Sexo -->
+                <div class="campo-formulario">
+                    <label for="registro-sexo">Sexo</label>
+
+                    <select id="registro-sexo">
+                        <option value="">
+                            Selecciona una opción
+                        </option>
+                        <option value="Macho">Macho</option>
+                        <option value="Hembra">Hembra</option>
+                    </select>
+                </div>
+
+                <!-- Tamaño -->
+                <div class="campo-formulario">
+                    <label for="registro-tamano">Tamaño</label>
+
+                    <select id="registro-tamano">
+                        <option value="">
+                            Selecciona el tamaño
+                        </option>
+                        <option value="Pequeño">Pequeño</option>
+                        <option value="Mediano">Mediano</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                </div>
+
+                <!-- Fecha estimada de nacimiento -->
+                <div class="campo-formulario">
+                    <label for="registro-fecha-nacimiento">
+                        Fecha estimada de nacimiento
+                    </label>
+
+                    <input
+                        type="date"
+                        id="registro-fecha-nacimiento"
+                        name="fechaNacimientoEstimada"
+                    >
+                </div>
+
+                <!-- Descripción de la mascota -->
+                <div class="campo-formulario campo-completo">
+                    <label for="registro-descripcion">
+                        Descripción
+                    </label>
+
+                    <textarea
+                        id="registro-descripcion"
+                        rows="4"
+                        placeholder="Describe su personalidad y características"
+                    ></textarea>
+                </div>
+
+                <!-- Fotografía y vista previa -->
+                <div class="campo-formulario campo-completo">
+                    <label for="registro-imagen">
+                        Fotografía de la mascota
+                    </label>
+
+                    <div class="zona-fotografia">
+
+                        <input
+                            type="file"
+                            id="registro-imagen"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
+
+                        <p class="texto-ayuda">
+                            Formatos permitidos: JPG, PNG y WebP.
+                            Tamaño máximo: 5 MB.
+                        </p>
+
+                        <p id="vista-previa-registro-texto">
+                            No se ha seleccionado ninguna fotografía.
+                        </p>
+
+                        <img
+                            id="vista-previa-registro"
+                            alt="Vista previa de la fotografía seleccionada"
+                            width="200"
+                            hidden
+                        >
+
+                    </div>
+                </div>
+
+                <!-- Botón de registro -->
+                <div class="acciones-formulario campo-completo">
+                    <button type="submit">
+                        Registrar mascota
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Mensaje del resultado del registro -->
+            <p id="mensaje-registro" role="status"></p>
+        </section>
+
+
+        <!-- =========================================
+             6. VENTANA DE DETALLES
+        ========================================= -->
+
+        <dialog id="modal-detalles" class="modal-detalles">
+
+            <div class="contenido-detalles">
+
+                <!-- Cerrar ventana -->
+                <button
+                    type="button"
+                    id="cerrar-detalles"
+                    aria-label="Cerrar detalles"
+                >
+                    ✕
+                </button>
+
+                <!-- Fotografía principal -->
+                <img
+                    id="detalle-imagen"
+                    alt="Fotografía de la mascota"
+                    hidden
+                >
+
+                <!-- Información general -->
+                <h2 id="detalle-nombre"></h2>
+
+                <div class="informacion-detalles">
+                    <p id="detalle-especie"></p>
+                    <p id="detalle-raza"></p>
+                    <p id="detalle-sexo"></p>
+                    <p id="detalle-tamano"></p>
+                    <p id="detalle-edad"></p>
+                    <p id="detalle-estado"></p>
+                </div>
+
+                <!-- Descripción completa -->
+                <div class="descripcion-detalles">
+                    <h3>Conoce un poco más sobre mí</h3>
+                    <p id="detalle-descripcion"></p>
+                </div>
+
+            </div>
+        </dialog>
+
+
+        <!-- =========================================
+             7. EDICIÓN DE MASCOTAS
+        ========================================= -->
+
+        <section
+            class="edicion"
+            id="seccion-edicion"
+            hidden
+        >
+            <div class="encabezado-seccion">
+                <h2>Editar mascota</h2>
+
+                <p>
+                    Modifica la información de la mascota
+                    seleccionada.
+                </p>
+            </div>
+
+            <form id="form-edicion" class="formulario-grid">
+
+                <!-- Identificador de la mascota -->
+                <input type="hidden" id="editar-id">
+
+                <!-- Nombre -->
+                <div class="campo-formulario">
+                    <label for="editar-nombre">
+                        Nombre *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editar-nombre"
+                        required
+                    >
+                </div>
+
+                <!-- Especie -->
+                <div class="campo-formulario">
+                    <label for="editar-especie">
+                        Especie *
+                    </label>
+
+                    <select id="editar-especie" required>
+                        <option value="Perro">Perro</option>
+                        <option value="Gato">Gato</option>
+                    </select>
+                </div>
+
+                <!-- Raza -->
+                <div class="campo-formulario">
+                    <label for="editar-raza">Raza</label>
+
+                    <input
+                        type="text"
+                        id="editar-raza"
+                    >
+                </div>
+
+                <!-- Sexo -->
+                <div class="campo-formulario">
+                    <label for="editar-sexo">Sexo</label>
+
+                    <select id="editar-sexo">
+                        <option value="">
+                            Selecciona una opción
+                        </option>
+                        <option value="Macho">Macho</option>
+                        <option value="Hembra">Hembra</option>
+                    </select>
+                </div>
+
+                <!-- Tamaño -->
+                <div class="campo-formulario">
+                    <label for="editar-tamano">Tamaño</label>
+
+                    <select id="editar-tamano">
+                        <option value="">
+                            Selecciona un tamaño
+                        </option>
+                        <option value="Pequeño">Pequeño</option>
+                        <option value="Mediano">Mediano</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                </div>
+
+                <!-- Fecha estimada de nacimiento -->
+                <div class="campo-formulario">
+                    <label for="editar-fecha-nacimiento">
+                        Fecha estimada de nacimiento
+                    </label>
+
+                    <input
+                        type="date"
+                        id="editar-fecha-nacimiento"
+                        name="fechaNacimientoEstimada"
+                    >
+                </div>
+
+                <!-- Descripción -->
+                <div class="campo-formulario campo-completo">
+                    <label for="editar-descripcion">
+                        Descripción
+                    </label>
+
+                    <textarea
+                        id="editar-descripcion"
+                        rows="4"
+                    ></textarea>
+                </div>
+
+                <!-- Fotografía que ya tiene guardada -->
+                <div class="campo-formulario campo-completo">
+
+                    <div class="fotografia-actual">
+                        <p>
+                            <strong>Fotografía actual:</strong>
+                        </p>
+
+                        <img
+                            id="editar-imagen-actual"
+                            alt="Fotografía actual de la mascota"
+                            width="200"
+                            hidden
+                        >
+
+                        <p id="editar-imagen-actual-texto">
+                            Esta mascota no tiene una fotografía registrada.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Seleccionar otra fotografía -->
+                <div class="campo-formulario campo-completo">
+
+                    <label for="editar-imagen">
+                        Cambiar fotografía
+                    </label>
+
+                    <div class="zona-fotografia">
+
+                        <input
+                            type="file"
+                            id="editar-imagen"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
+
+                        <p class="texto-ayuda">
+                            Opcional. Selecciona otra imagen únicamente
+                            si deseas reemplazar la fotografía actual.
+                        </p>
+
+                        <p id="vista-previa-edicion-texto">
+                            Si no seleccionas otra fotografía,
+                            se conservará la actual.
+                        </p>
+
+                        <img
+                            id="vista-previa-edicion"
+                            alt="Vista previa de la fotografía seleccionada"
+                            width="200"
+                            hidden
+                        >
+
+                    </div>
+                </div>
+
+                <!-- Botones de edición -->
+                <div class="acciones-formulario campo-completo">
+                    <button type="submit">
+                        Guardar cambios
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelar-edicion"
+                        class="boton-secundario"
+                    >
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- Resultado de la actualización -->
+            <p id="mensaje-edicion" role="status"></p>
+        </section>
 
     </main>
 
+
+    <!-- =========================================
+         8. PIE DE PÁGINA
+    ========================================= -->
+
     <footer>
-        <p>Huellitas - Sistema de adopción de mascotas</p>
+        <p>🐾 PawMach - Sistema de adopción de mascotas</p>
     </footer>
+
 </body>
 </html>
+

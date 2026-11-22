@@ -69,7 +69,6 @@ public class MascotaService {
         );
         mascota.setTamano(datosActualizados.getTamano());
         mascota.setDescripcion(datosActualizados.getDescripcion());
-        mascota.setImagenPrincipalUrl(datosActualizados.getImagenPrincipalUrl());
 
         // Conserva ID, estado y fecha de registro
         return mascotaRepository.save(mascota);
