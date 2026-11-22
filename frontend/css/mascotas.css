@@ -1,189 +1,1097 @@
 
-/* Configuración general */
+/* =========================================================
+   PAWMACH - CATÁLOGO DE MASCOTAS
+   Estilos generales, formularios, tarjetas y ventana de detalles
+========================================================= */
+
+
+/* =========================================================
+   1. IDENTIDAD VISUAL
+========================================================= */
+
+:root {
+    /* Colores principales */
+    --color-primario: #7953a3;
+    --color-primario-oscuro: #603d88;
+    --color-primario-claro: #eee4f7;
+
+    /* Fondos */
+    --color-fondo: #faf7fd;
+    --color-superficie: #ffffff;
+
+    /* Textos */
+    --color-texto: #352742;
+    --color-texto-secundario: #74677d;
+
+    /* Colores complementarios */
+    --color-acento: #f4c3ae;
+    --color-exito: #d9f1e4;
+    --color-exito-texto: #286749;
+
+    /* Bordes y sombras */
+    --color-borde: #e9dff0;
+    --sombra-suave: 0 8px 25px rgba(87, 55, 117, 0.08);
+    --sombra-tarjeta: 0 12px 30px rgba(87, 55, 117, 0.12);
+
+    /* Bordes redondeados */
+    --radio-pequeno: 10px;
+    --radio-mediano: 16px;
+    --radio-grande: 24px;
+}
+
+
+/* =========================================================
+   2. ESTILOS GENERALES
+========================================================= */
+
+/* Evita que el padding aumente el ancho de los elementos */
 * {
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f7f5fc;
-    color: #302943;
+html {
+    scroll-behavior: smooth;
 }
 
-/* Encabezado */
+body {
+    margin: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 26px;
+    color: var(--color-texto);
+}
+
+p {
+    line-height: 1.6;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* Contenido central de la página */
+main {
+    width: min(100% - 40px, 1200px);
+    margin: 0 auto;
+    padding: 35px 0;
+}
+
+
+/* =========================================================
+   3. ENCABEZADO Y NAVEGACIÓN
+========================================================= */
+
 .encabezado {
-    background-color: #ffffff;
-    padding: 20px 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    gap: 20px;
+
+    padding: 20px max(24px, calc((100% - 1200px) / 2));
+
+    background-color: var(--color-superficie);
+    border-bottom: 1px solid var(--color-borde);
+    box-shadow: 0 2px 12px rgba(87, 55, 117, 0.04);
 }
 
 .encabezado h1 {
     margin: 0;
-    color: #7654a3;
+    color: var(--color-primario);
     font-size: 28px;
+    font-weight: 800;
+}
+
+.encabezado nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .encabezado a {
+    color: var(--color-primario);
     text-decoration: none;
-    color: #7654a3;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.2s ease;
 }
 
-/* Contenido */
-main {
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: 35px 24px;
+.encabezado a:hover {
+    color: var(--color-primario-oscuro);
 }
 
-/* Bienvenida */
+
+/* =========================================================
+   4. SECCIÓN DE BIENVENIDA
+========================================================= */
+
 .bienvenida {
     text-align: center;
-    padding: 45px 20px;
+    padding: 55px 25px;
+    margin-bottom: 30px;
+
+    background: linear-gradient(
+        135deg,
+        #f2e9fb,
+        #faf1f7,
+        #fff7f1
+    );
+
+    border-radius: var(--radio-grande);
 }
 
 .bienvenida h2 {
-    font-size: 34px;
-    color: #5d4385;
+    margin: 0 0 16px;
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--color-primario-oscuro);
 }
 
 .bienvenida p {
-    color: #716b7d;
+    max-width: 620px;
+    margin: 0 auto;
+    color: var(--color-texto-secundario);
     font-size: 17px;
 }
 
-/* Filtros */
-.filtros {
-    background-color: white;
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 35px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+
+/* =========================================================
+   5. BOTONES GENERALES
+========================================================= */
+
+button {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: var(--radio-pequeno);
+
+    background-color: var(--color-primario);
+    color: #ffffff;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.filtros h2 {
-    margin-top: 0;
+button:not(:disabled):hover {
+    background-color: var(--color-primario-oscuro);
+    transform: translateY(-2px);
 }
 
-#form-filtros {
+button:focus-visible {
+    outline: 3px solid #c6a6df;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Acciones secundarias */
+.boton-secundario,
+button[type="reset"] {
+    background-color: var(--color-primario-claro);
+    color: var(--color-primario-oscuro);
+}
+
+.boton-secundario:not(:disabled):hover,
+button[type="reset"]:not(:disabled):hover {
+    background-color: #e1d3ef;
+}
+
+
+/* =========================================================
+   6. CAMPOS DE FORMULARIOS
+========================================================= */
+
+/* Cada etiqueta se coloca encima de su campo */
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.campo-formulario label {
+    color: var(--color-texto);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    min-width: 0;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-pequeno);
+
+    background-color: #ffffff;
+    color: var(--color-texto);
+
+    font: inherit;
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Resalta el campo seleccionado */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--color-primario);
+
+    box-shadow: 0 0 0 3px rgba(121, 83, 163, 0.12);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #9a90a5;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Distribución general en dos columnas */
+#form-registro,
+#form-edicion {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    align-items: start;
+}
+
+/* Un campo puede ocupar las dos columnas */
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+/* Alineación de botones de los formularios */
+.acciones-formulario {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
 }
 
-input,
-select {
-    padding: 11px;
-    border: 1px solid #d7cde5;
-    border-radius: 8px;
+
+/* =========================================================
+   7. FILTROS DE BÚSQUEDA
+========================================================= */
+
+.filtros {
+    background-color: var(--color-superficie);
+
+    padding: 30px;
+    margin-bottom: 35px;
+
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-grande);
+
+    box-shadow: var(--sombra-suave);
+}
+
+.filtros h2 {
+    margin: 0 0 22px;
+}
+
+/* Buscador horizontal */
+#form-filtros {
+    display: grid;
+    grid-template-columns:
+        minmax(180px, 2fr)
+        minmax(120px, 1fr)
+        minmax(140px, 1fr)
+        auto;
+
+    gap: 16px;
+    align-items: end;
+}
+
+#form-filtros .acciones-formulario {
+    align-self: end;
+}
+
+#form-filtros button {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   8. REGISTRO Y EDICIÓN DE MASCOTAS
+========================================================= */
+
+.registro,
+.edicion {
+    background-color: var(--color-superficie);
+
+    padding: 35px;
+    margin: 35px 0;
+
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-grande);
+
+    box-shadow: var(--sombra-suave);
+}
+
+/* Mantiene oculta la edición hasta que se solicite */
+.edicion[hidden] {
+    display: none !important;
+}
+
+/* Títulos y descripciones */
+.encabezado-seccion {
+    margin-bottom: 25px;
+}
+
+.encabezado-seccion h2 {
+    margin: 0 0 8px;
+}
+
+.encabezado-seccion p {
+    margin: 0;
+    color: var(--color-texto-secundario);
+}
+
+/* Mensajes de respuesta */
+#mensaje-registro,
+#mensaje-edicion {
     font-size: 14px;
+    font-weight: 500;
 }
 
-input:focus,
-select:focus {
-    outline: 2px solid #af94d2;
+#mensaje-registro:empty,
+#mensaje-edicion:empty {
+    display: none;
 }
 
-button {
-    padding: 11px 18px;
-    border: none;
-    border-radius: 8px;
-    background-color: #7956a5;
-    color: white;
-    font-weight: bold;
+
+/* =========================================================
+   9. SELECCIÓN Y VISTA PREVIA DE FOTOGRAFÍAS
+========================================================= */
+
+/* Área para seleccionar una fotografía */
+.zona-fotografia {
+    padding: 22px;
+
+    background-color: #fbf8fe;
+
+    border: 2px dashed #d6c4e8;
+    border-radius: var(--radio-mediano);
+}
+
+.zona-fotografia input[type="file"] {
+    background-color: #ffffff;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #634388;
+/* Botón interno del selector de archivos */
+input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 9px 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: var(--color-primario-claro);
+    color: var(--color-primario-oscuro);
+
+    font: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
 }
 
-button[type="reset"] {
-    background-color: #eae4f3;
-    color: #5d4385;
+.texto-ayuda,
+#vista-previa-registro-texto,
+#vista-previa-edicion-texto {
+    margin: 10px 0;
+    color: var(--color-texto-secundario);
+    font-size: 13px;
 }
 
-/* Catálogo */
+/* Imágenes seleccionadas desde los formularios */
+#vista-previa-registro:not([hidden]),
+#vista-previa-edicion:not([hidden]) {
+    display: block;
+
+    width: 200px;
+    max-width: 100%;
+    height: 170px;
+
+    object-fit: cover;
+
+    margin-top: 12px;
+    border-radius: var(--radio-mediano);
+}
+
+/* Fotografía que ya está guardada */
+.fotografia-actual {
+    padding: 20px;
+
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-mediano);
+
+    background-color: #faf7fd;
+}
+
+.fotografia-actual p {
+    margin: 0 0 10px;
+}
+
+#editar-imagen-actual:not([hidden]) {
+    display: block;
+
+    width: 200px;
+    max-width: 100%;
+    height: 170px;
+
+    object-fit: cover;
+
+    margin: 12px 0;
+    border-radius: var(--radio-mediano);
+}
+
+#editar-imagen-actual-texto {
+    font-size: 13px;
+    color: var(--color-texto-secundario);
+}
+
+
+/* =========================================================
+   10. CATÁLOGO DE MASCOTAS
+========================================================= */
+
+.catalogo {
+    margin: 45px 0;
+}
+
 .catalogo h2 {
-    color: #5d4385;
+    color: var(--color-primario-oscuro);
 }
 
+#mensaje-catalogo {
+    color: var(--color-texto-secundario);
+    font-size: 15px;
+}
+
+/* Tarjetas distribuidas en columnas */
 .lista-mascotas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 24px;
     margin-top: 25px;
 }
 
-/* Tarjetas de mascotas */
+
+/* =========================================================
+   11. TARJETAS DE MASCOTAS
+========================================================= */
+
 .tarjeta-mascota {
-    background-color: white;
-    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-grande);
+
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-    transition: transform 0.2s;
+
+    box-shadow: var(--sombra-suave);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .tarjeta-mascota:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-tarjeta);
 }
 
-.tarjeta-mascota img {
+/* Fotografía principal de la tarjeta */
+.tarjeta-mascota .mascota-imagen {
+    display: block;
+
     width: 100%;
-    height: 190px;
+    height: 230px;
+
     object-fit: cover;
 }
 
+/* Contenedor de fotografía de las tarjetas */
+.contenedor-imagen-mascota {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    background-color: var(--color-primario-claro);
+}
+
+/* La fotografía ocupa todo el contenedor */
+.contenedor-imagen-mascota .mascota-imagen:not([hidden]) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Espacio alternativo cuando no hay fotografía */
+.imagen-alternativa:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+        135deg,
+        #f1e8f9,
+        #e9dff4
+    );
+
+    color: var(--color-primario);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Huellita decorativa */
+.icono-huella {
+    font-size: 48px;
+    line-height: 1;
+}
+
+/* Información dentro de la tarjeta */
 .tarjeta-contenido {
-    padding: 18px;
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+
+    padding: 22px;
 }
 
 .tarjeta-contenido h3 {
-    color: #5d4385;
-    margin-top: 0;
+    margin: 0 0 14px;
+
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--color-primario-oscuro);
 }
 
+/* =========================================================
+   ETIQUETAS DE ESTADO DE LAS MASCOTAS
+========================================================= */
+
+/* Nombre y estado en la misma fila */
+.encabezado-tarjeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.encabezado-tarjeta h3 {
+    margin: 0;
+}
+
+/* Estilo general de las etiquetas */
+.etiqueta-estado {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Mascota disponible */
+.estado-disponible {
+    background-color: #d9f1e4;
+    color: #286749;
+}
+
+/* Adopción en proceso */
+.estado-proceso {
+    background-color: #fff0c2;
+    color: #886308;
+}
+
+/* Mascota adoptada */
+.estado-adoptada {
+    background-color: #eee4f7;
+    color: #68428c;
+}
+
+/* Mascota inactiva */
+.estado-inactiva {
+    background-color: #eeeeef;
+    color: #686873;
+}
+
+
 .tarjeta-contenido p {
-    color: #716b7d;
+    margin: 0 0 9px;
+
+    color: var(--color-texto-secundario);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Espacio antes de los botones */
+.tarjeta-contenido button:first-of-type {
+    margin-top: auto;
+}
+
+/* Botones de las tarjetas */
+.tarjeta-contenido button {
+    width: 100%;
+    margin-top: 9px;
+    padding: 11px 14px;
+
+    border-radius: var(--radio-pequeno);
+}
+
+/* Botón principal para consultar detalles */
+.boton-detalles {
+    background-color: var(--color-primario);
+    color: white;
+}
+
+/* Los botones inactivos muestran su estado */
+.tarjeta-contenido button:disabled {
+    background-color: #eae5ef;
+    color: #978b9f;
+}
+
+
+/* =========================================================
+   12. VENTANA DE DETALLES
+========================================================= */
+
+/* Ventana emergente */
+.modal-detalles {
+    width: min(90%, 650px);
+    max-height: 85vh;
+
+    padding: 0;
+
+    border: none;
+    border-radius: var(--radio-grande);
+
+    background-color: var(--color-superficie);
+    color: var(--color-texto);
+
+    box-shadow: 0 20px 55px rgba(40, 25, 55, 0.25);
+
+    overflow-y: auto;
+}
+
+/* Fondo oscuro detrás de la ventana */
+.modal-detalles::backdrop {
+    background-color: rgba(35, 24, 49, 0.55);
+}
+
+/* Organización interna */
+.contenido-detalles {
+    position: relative;
+    padding: 30px;
+}
+
+/* Botón de cerrar */
+#cerrar-detalles {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+
+    display: grid;
+    place-items: center;
+
+    width: 40px;
+    height: 40px;
+    padding: 0;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primario);
+    color: white;
+
+    font-size: 20px;
+}
+
+/* Fotografía ampliada */
+#detalle-imagen:not([hidden]) {
+    display: block;
+
+    width: 100%;
+    height: 280px;
+
+    object-fit: cover;
+
+    margin-bottom: 22px;
+    border-radius: var(--radio-mediano);
+}
+
+/* Nombre */
+#detalle-nombre {
+    margin: 0 0 22px;
+
+    color: var(--color-primario-oscuro);
+    font-size: 30px;
+}
+
+/* Datos de la mascota */
+.informacion-detalles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.informacion-detalles p {
+    margin: 0;
+    padding: 12px;
+
+    background-color: #f8f4fc;
+    border-radius: var(--radio-pequeno);
+
     font-size: 14px;
 }
 
-/* Pie de página */
-footer {
-    text-align: center;
-    padding: 25px;
-    background-color: #ffffff;
-    color: #716b7d;
-    margin-top: 40px;
+/* Descripción completa */
+.descripcion-detalles {
+    margin-top: 25px;
+    padding-top: 18px;
+
+    border-top: 1px solid var(--color-borde);
 }
 
-/* Diseño adaptable */
-@media (max-width: 700px) {
-    .encabezado {
-        flex-direction: column;
-        gap: 12px;
-    }
+.descripcion-detalles h3 {
+    margin: 0 0 12px;
 
-    .bienvenida h2 {
-        font-size: 26px;
+    color: var(--color-primario-oscuro);
+    font-size: 20px;
+}
+
+.descripcion-detalles p {
+    margin: 0;
+    color: var(--color-texto-secundario);
+}
+
+
+/* =========================================================
+   13. PIE DE PÁGINA
+========================================================= */
+
+footer {
+    margin-top: 50px;
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background-color: var(--color-superficie);
+    color: var(--color-texto-secundario);
+
+    border-top: 1px solid var(--color-borde);
+}
+
+
+/* =========================================================
+   14. DISEÑO RESPONSIVO
+========================================================= */
+
+/* Tabletas */
+@media (max-width: 950px) {
+
+    .lista-mascotas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     #form-filtros {
-        flex-direction: column;
-        align-items: stretch;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    input,
-    select,
-    button {
+    #form-filtros .acciones-formulario {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* Celulares */
+@media (max-width: 650px) {
+
+    main {
+        width: min(100% - 28px, 1200px);
+        padding-top: 22px;
+    }
+
+    .encabezado {
+        flex-direction: column;
+        gap: 12px;
+        padding: 18px;
+    }
+
+    .bienvenida {
+        padding: 35px 20px;
+    }
+
+    .bienvenida h2 {
+        font-size: 28px;
+    }
+
+    .bienvenida p {
+        font-size: 15px;
+    }
+
+    .filtros,
+    .registro,
+    .edicion {
+        padding: 22px;
+    }
+
+    /* Formularios en una columna */
+    #form-registro,
+    #form-edicion,
+    #form-filtros {
+        grid-template-columns: 1fr;
+    }
+
+    #form-filtros .acciones-formulario {
+        grid-column: auto;
+    }
+
+    /* Catálogo en una columna */
+    .lista-mascotas {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-mascota .mascota-imagen {
+        height: 250px;
+    }
+
+    /* Modal adaptable */
+    .modal-detalles {
+        width: 94%;
+        max-height: 90vh;
+    }
+
+    .contenido-detalles {
+        padding: 20px;
+    }
+
+    #detalle-imagen:not([hidden]) {
+        height: 220px;
+    }
+
+    #detalle-nombre {
+        font-size: 25px;
+    }
+
+    .informacion-detalles {
+        grid-template-columns: 1fr;
+    }
+
+    /* Botones cómodos en pantallas pequeñas */
+    .acciones-formulario button {
+        flex: 1;
+    }
+}
+
+
+/* Respeta las preferencias de movimiento del usuario */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   TARJETAS - INFORMACIÓN COMPACTA
+========================================================= */
+
+/* Especie y raza */
+.tipo-mascota {
+    margin: 0 0 18px !important;
+    color: var(--color-texto-secundario);
+    font-size: 14px;
+}
+
+/* Cuadrícula de características */
+.caracteristicas-mascota {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+/* Característica individual */
+.caracteristica {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+
+    color: var(--color-texto-secundario);
+    font-size: 14px;
+}
+
+/* La edad ocupa toda la fila */
+.caracteristica:last-child {
+    grid-column: 1 / -1;
+}
+
+/* Iconos de características */
+.caracteristica-icono {
+    flex-shrink: 0;
+    font-size: 17px;
+    color: var(--color-primario);
+}
+
+/* =========================================================
+   BOTONES DE LAS TARJETAS
+========================================================= */
+
+/* Contenedor de acciones */
+.acciones-tarjeta {
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+/* Botón principal */
+.acciones-tarjeta .boton-detalles {
+    width: 100%;
+    margin: 0;
+    padding: 13px;
+}
+
+/* Editar y desactivar en una misma fila */
+.acciones-administrativas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Botones secundarios */
+.acciones-administrativas button {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 11px 8px;
+
+    background-color: var(--color-primario-claro);
+    color: var(--color-primario-oscuro);
+
+    font-size: 13px;
+}
+
+.acciones-administrativas button:not(:disabled):hover {
+    background-color: #dfcdec;
+}
+
+/* Botones administrativos deshabilitados */
+.acciones-administrativas button:disabled {
+    background-color: #f0eef2;
+    color: #aaa3af;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 650px) {
+    .caracteristicas-mascota {
+        gap: 10px;
+    }
+}
+
+/* =========================================================
+   ACCESO AL REGISTRO DE MASCOTAS
+========================================================= */
+
+.acceso-registro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+
+    padding: 28px 32px;
+    margin: 40px 0 20px;
+
+    background: linear-gradient(
+        120deg,
+        #f1e8f9,
+        #fff4ef
+    );
+
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-grande);
+}
+
+.acceso-registro h2 {
+    margin: 0 0 8px;
+    color: var(--color-primario-oscuro);
+    font-size: 22px;
+}
+
+.acceso-registro p {
+    margin: 0;
+    color: var(--color-texto-secundario);
+    font-size: 14px;
+}
+
+#toggle-registro {
+    flex-shrink: 0;
+    padding: 14px 22px;
+}
+
+/* Evitar espacios cuando el formulario está cerrado */
+.registro[hidden] {
+    display: none !important;
+}
+
+/* Adaptación a celulares */
+@media (max-width: 650px) {
+    .acceso-registro {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 24px;
+    }
+
+    #toggle-registro {
         width: 100%;
     }
 }
-[hidden] {
-    display: none !important;
-}
+

@@ -1,5 +1,6 @@
 package com.huellitas.backend.controller;
-
+import com.huellitas.backend.service.ImagenMascotaService;
+import org.springframework.web.multipart.MultipartFile;
 import com.huellitas.backend.model.Mascota;
 import com.huellitas.backend.service.MascotaService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -8,19 +9,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.List;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 // Indica que esta clase recibe peticiones HTTP y devuelve respuestas JSON
 @RestController
 @RequestMapping("/api/mascotas")
 @CrossOrigin(origins = {"http://127.0.0.1:3000", "http://localhost:3000"})
 public class MascotaController {
-
     private final MascotaService mascotaService;
+    private final ImagenMascotaService imagenMascotaService;
+    public MascotaController(
+        MascotaService mascotaService,
+        ImagenMascotaService imagenMascotaService) {
 
-    // Recibe el servicio mediante inyección de dependencias
-    public MascotaController(MascotaService mascotaService) {
-        this.mascotaService = mascotaService;
-    }
+    this.mascotaService = mascotaService;
+    this.imagenMascotaService = imagenMascotaService;
+}
 
     // GET: consulta mascotas utilizando filtros opcionales
     @GetMapping
@@ -37,7 +45,7 @@ public class MascotaController {
         // Devuelve los resultados en formato JSON
         return ResponseEntity.ok(mascotas);
     }
-    
+
     // POST: recibe los datos de una mascota y la registra
     @PostMapping
     public ResponseEntity<Mascota> registrarMascota(@Valid @RequestBody Mascota mascota) {
@@ -78,6 +86,62 @@ public class MascotaController {
         // Si se desactivó correctamente, devuelve HTTP 204
         return ResponseEntity.noContent().build();
     }
+
+    // POST: sube una fotografía principal para una mascota
+    @PostMapping(
+        value = "/{id}/imagen",
+        consumes = "multipart/form-data"
+    )
+    public ResponseEntity<Mascota> subirImagen(
+            @PathVariable Long id,
+            @RequestParam("archivo") MultipartFile archivo) {
+
+        Mascota mascotaActualizada =
+                imagenMascotaService.guardarImagen(id, archivo);
+
+        return ResponseEntity.ok(mascotaActualizada);
+    }
+
+    // GET: permite visualizar las fotografías guardadas
+    @GetMapping("/imagenes/{nombreArchivo:.+}")
+    public ResponseEntity<Resource> obtenerImagen(
+            @PathVariable String nombreArchivo) {
+
+        // Solo aceptar nombres de archivos generados por nuestro sistema
+        if (!nombreArchivo.matches(
+                "[0-9a-fA-F-]{36}\\.(jpg|png|webp)")) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Path directorio = Path.of(
+                "uploads", "mascotas"
+        ).toAbsolutePath().normalize();
+
+        Path rutaImagen = directorio.resolve(nombreArchivo).normalize();
+
+        if (!rutaImagen.startsWith(directorio)
+                || !Files.isRegularFile(rutaImagen)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        MediaType tipoImagen;
+
+        if (nombreArchivo.endsWith(".png")) {
+            tipoImagen = MediaType.IMAGE_PNG;
+        } else if (nombreArchivo.endsWith(".webp")) {
+            tipoImagen = MediaType.parseMediaType("image/webp");
+        } else {
+            tipoImagen = MediaType.IMAGE_JPEG;
+        }
+
+        Resource recurso = new FileSystemResource(rutaImagen);
+
+        return ResponseEntity.ok()
+                .contentType(tipoImagen)
+                .body(recurso);
+    }
+
+
 
 
 }
