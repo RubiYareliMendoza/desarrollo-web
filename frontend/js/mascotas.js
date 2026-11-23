@@ -16,6 +16,21 @@ const formularioFiltros = document.getElementById("form-filtros");
 const formularioRegistro = document.getElementById("form-registro");
 const mensajeRegistro = document.getElementById("mensaje-registro");
 
+// Muestra mensajes de éxito, advertencia o error en el registro.
+function mostrarMensajeRegistro(texto, tipo) {
+    mensajeRegistro.classList.remove(
+        "mensaje-exito",
+        "mensaje-advertencia",
+        "mensaje-error"
+    );
+
+    mensajeRegistro.textContent = texto;
+
+    if (tipo) {
+        mensajeRegistro.classList.add(`mensaje-${tipo}`);
+    }
+}
+
 const formularioEdicion = document.getElementById("form-edicion");
 const seccionEdicion = document.getElementById("seccion-edicion");
 const mensajeEdicion = document.getElementById("mensaje-edicion");
@@ -305,6 +320,17 @@ function mostrarMascotas(mascotas) {
             abrirDetallesMascota(mascota);
         });
 
+        // Botón para consultar el expediente digital.
+        const botonExpediente = document.createElement("button");
+        botonExpediente.type = "button";
+        botonExpediente.textContent = "🐾 Ver expediente";
+        botonExpediente.className = "boton-expediente";
+
+        // Abrir el expediente de la mascota seleccionada.
+        botonExpediente.addEventListener("click", () => {
+            window.location.href =
+                `expedientes.html?idMascota=${mascota.idMascota}`;
+        });
 
         // Botón para editar la mascota.
         const botonEditar = document.createElement("button");
@@ -350,6 +376,7 @@ function mostrarMascotas(mascotas) {
 
         accionesTarjeta.append(
             botonDetalles,
+            botonExpediente,
             accionesAdministrativas
         );
 
@@ -368,22 +395,37 @@ function mostrarMascotas(mascotas) {
 // Abre la ventana y muestra los datos de la mascota seleccionada.
 function abrirDetallesMascota(mascota) {
 
+    
     const modal = document.getElementById("modal-detalles");
     const imagen = document.getElementById("detalle-imagen");
 
-    // Mostrar la fotografía principal.
+    const imagenAlternativa = document.getElementById(
+        "detalle-imagen-alternativa"
+    );
+
+    // Ocultar ambas opciones antes de cargar la fotografía.
+    imagen.hidden = true;
+    imagenAlternativa.hidden = true;
+    imagen.removeAttribute("src");
+
+    // Mostrar la huellita si la imagen no puede cargarse.
+    imagen.onerror = () => {
+        imagen.hidden = true;
+        imagenAlternativa.hidden = false;
+    };
+
     if (mascota.imagenPrincipalUrl) {
+        // Mostrar la fotografía guardada.
         imagen.src = new URL(
             mascota.imagenPrincipalUrl,
             URL_BACKEND
         ).href;
 
-        imagen.alt = `Fotografía de ${mascota.nombre}`;
         imagen.hidden = false;
 
     } else {
-        imagen.removeAttribute("src");
-        imagen.hidden = true;
+        // Mostrar la huellita si no existe fotografía.
+        imagenAlternativa.hidden = false;
     }
 
     // Mostrar la información de la mascota.
@@ -573,8 +615,9 @@ async function registrarMascota(evento) {
 
     // Validar los campos obligatorios.
     if (!datosMascota.nombre || !datosMascota.especie) {
-        mensajeRegistro.textContent =
-            "El nombre y la especie son obligatorios.";
+        mostrarMensajeRegistro(
+            "El nombre y la especie son obligatorios.","error"
+        );
         return;
     }
 
@@ -583,7 +626,7 @@ async function registrarMascota(evento) {
     );
 
     boton.disabled = true;
-    mensajeRegistro.textContent = "Registrando mascota...";
+    mostrarMensajeRegistro("Registrando mascota...", null);
 
     try {
         // Registrar los datos mediante POST.
@@ -610,8 +653,9 @@ async function registrarMascota(evento) {
 
         // Asociar la fotografía a la mascota recién registrada.
         if (archivo) {
-            mensajeRegistro.textContent =
-                "Mascota registrada. Subiendo fotografía...";
+            mostrarMensajeRegistro(
+                "Mascota registrada. Subiendo fotografía...", null
+            );
 
             try {
                 await subirFotografia(
@@ -636,19 +680,42 @@ async function registrarMascota(evento) {
         // Actualizar el catálogo.
         await cargarMascotas();
 
+       
+        // Mostrar el resultado del registro.
         if (imagenGuardada) {
-            mensajeRegistro.textContent =
-                `¡${mascotaRegistrada.nombre} fue registrada correctamente!`;
+            // Registro y fotografía guardados correctamente.
+            mostrarMensajeRegistro(
+                `¡${mascotaRegistrada.nombre} fue registrada correctamente!`,
+                "exito"
+            );
+
         } else {
-            mensajeRegistro.textContent =
-                `${mascotaRegistrada.nombre} fue registrada, pero no se pudo guardar su fotografía. Puedes agregarla después desde Editar.`;
+            // La mascota se registró, pero falló la fotografía.
+            mostrarMensajeRegistro(
+                `${mascotaRegistrada.nombre} fue registrada, pero no se pudo guardar su fotografía. Puedes agregarla después desde Editar.`,
+                "advertencia"
+            );
         }
+
+        // Cerrar el formulario porque la mascota ya fue registrada.
+        const seccionRegistro = document.getElementById("seccion-registro");
+        const botonRegistro = document.getElementById("toggle-registro");
+
+        seccionRegistro.hidden = true;
+        botonRegistro.textContent = "+ Registrar mascota";
+        botonRegistro.setAttribute("aria-expanded", "false");
+
+        // Llevar al usuario al resultado del registro.
+        mensajeRegistro.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
 
     } catch (error) {
         console.error("Error al registrar mascota:", error);
 
-        mensajeRegistro.textContent =
-            "No se pudo registrar la mascota. Revisa los datos e inténtalo nuevamente.";
+        mostrarMensajeRegistro("No se pudo registrar la mascota. Revisa los datos e inténtalo nuevamente.","error");
 
     } finally {
         boton.disabled = false;

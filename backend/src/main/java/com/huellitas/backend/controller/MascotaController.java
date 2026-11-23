@@ -46,6 +46,23 @@ public class MascotaController {
         return ResponseEntity.ok(mascotas);
     }
 
+    // GET: consulta una mascota específica mediante su ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Mascota> obtenerMascotaPorId(
+            @PathVariable Long id) {
+
+        // Buscar la mascota mediante el servicio.
+        Mascota mascota = mascotaService.obtenerMascotaPorId(id);
+
+        // Si no existe, devolver HTTP 404.
+        if (mascota == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Si existe, devolver sus datos con HTTP 200.
+        return ResponseEntity.ok(mascota);
+    }
+
     // POST: recibe los datos de una mascota y la registra
     @PostMapping
     public ResponseEntity<Mascota> registrarMascota(@Valid @RequestBody Mascota mascota) {
