@@ -1,0 +1,245 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f5fc;
+    color: #302943;
+}
+
+.encabezado {
+    min-height: 108px;
+    padding: 20px 7%;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.encabezado h1 {
+    margin: 0;
+    color: #7654a3;
+    font-size: 36px;
+}
+
+.encabezado nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.encabezado nav a {
+    color: #5d4385;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.encabezado nav a:hover {
+    background: #f0e8f7;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #7956a5;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #634388;
+}
+
+main {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+    padding: 42px 0;
+}
+
+.bienvenida {
+    min-height: 280px;
+    margin-bottom: 38px;
+    padding: 55px 24px;
+    border-radius: 32px;
+    background: linear-gradient(115deg, #f1e8fa, #fff5ef);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bienvenida h2 {
+    margin: 0 0 16px;
+    color: #5d4385;
+    font-size: clamp(30px, 4vw, 48px);
+}
+
+.bienvenida p {
+    margin: 0;
+    color: #716b7d;
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+.panel-solicitudes {
+    margin: 30px 0;
+    padding: 32px;
+    background: #fff;
+    border: 1px solid #eee5f5;
+    border-radius: 24px;
+    box-shadow: 0 6px 22px rgba(48, 41, 67, 0.06);
+}
+
+.panel-solicitudes h2 {
+    margin: 0 0 24px;
+    color: #5d4385;
+    font-size: 28px;
+}
+
+#form-solicitud {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: end;
+}
+
+.campo-solicitud {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.campo-solicitud label {
+    font-weight: bold;
+}
+
+.campo-solicitud select,
+.campo-solicitud textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d7cde5;
+    border-radius: 4px;
+    background: #fff;
+    color: #302943;
+    font: inherit;
+}
+
+.campo-solicitud textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.campo-solicitud select:focus,
+.campo-solicitud textarea:focus {
+    outline: 2px solid #af94d2;
+}
+
+#form-solicitud button {
+    justify-self: start;
+}
+
+#mis-solicitudes {
+    margin-top: 38px;
+}
+
+#lista-mis-solicitudes,
+#lista-pendientes {
+    display: grid;
+    gap: 18px;
+}
+
+/* Tarjetas que genera JavaScript */
+#lista-mis-solicitudes > *,
+#lista-pendientes > * {
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #e8def1;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(48, 41, 67, 0.05);
+}
+
+#lista-mis-solicitudes h3,
+#lista-pendientes h3 {
+    margin-top: 0;
+    color: #5d4385;
+}
+
+#mensaje-general,
+#mensaje-solicitud {
+    color: #5d4385;
+    font-weight: bold;
+}
+
+.pie-pagina {
+    margin-top: 50px;
+    padding: 28px 16px;
+    background: #fff;
+    color: #716b7d;
+    text-align: center;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 700px) {
+    .encabezado {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .encabezado nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    main {
+        width: min(94%, 600px);
+        padding-top: 25px;
+    }
+
+    .bienvenida {
+        min-height: 220px;
+        padding: 38px 20px;
+    }
+
+    .panel-solicitudes {
+        padding: 22px;
+    }
+
+    #form-solicitud {
+        grid-template-columns: 1fr;
+    }
+}
+.encabezado {
+    height: 84px;
+    min-height: 84px;
+    padding: 16px 7%;
+}
+
+.encabezado h1 {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.bienvenida {
+    height: 200px;
+    min-height: 200px;
+    padding: 30px 24px;
+}
+
+.bienvenida h2 {
+    font-size: 40px;
+}

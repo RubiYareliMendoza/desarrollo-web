@@ -1094,4 +1094,17 @@ footer {
         width: 100%;
     }
 }
+#link-mis-solicitudes {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: #7956a5;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#link-mis-solicitudes:hover {
+    background-color: #634388;
+}
 
