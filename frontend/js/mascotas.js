@@ -5,6 +5,11 @@
 const API_MASCOTAS = "http://localhost:8080/api/mascotas";
 const URL_BACKEND = new URL(API_MASCOTAS).origin;
 
+const usuarioActual = JSON.parse(
+    sessionStorage.getItem("usuarioActual") || "null"
+);
+const esAdministrador = usuarioActual?.nombreRol === "ADMINISTRADOR";
+
 const TAMANO_MAXIMO_IMAGEN = 5 * 1024 * 1024;
 const FORMATOS_IMAGEN = ["image/jpeg", "image/png", "image/webp"];
 
@@ -35,6 +40,31 @@ const formularioEdicion = document.getElementById("form-edicion");
 const seccionEdicion = document.getElementById("seccion-edicion");
 const mensajeEdicion = document.getElementById("mensaje-edicion");
 
+function configurarInterfazPorRol() {
+    const enlaceSolicitudes =
+        document.getElementById("link-mis-solicitudes");
+    const accesoRegistro =
+        document.querySelector(".acceso-registro");
+
+    if (enlaceSolicitudes) {
+        if (esAdministrador) {
+            enlaceSolicitudes.textContent = "Solicitudes";
+            enlaceSolicitudes.hidden = false;
+        } else if (usuarioActual?.nombreRol === "ADOPTANTE") {
+            enlaceSolicitudes.textContent = "Mis solicitudes";
+            enlaceSolicitudes.hidden = false;
+        }
+    }
+
+    if (accesoRegistro) {
+        accesoRegistro.hidden = !esAdministrador;
+    }
+
+    if (!esAdministrador) {
+        document.getElementById("seccion-registro").hidden = true;
+        seccionEdicion.hidden = true;
+    }
+}
 
 // Obtiene el valor de un campo y elimina espacios innecesarios.
 function valor(id) {
@@ -348,45 +378,24 @@ function mostrarMascotas(mascotas) {
         }
 
         // Botón para desactivar la mascota.
-        const botonDesactivar = document.createElement("button");
-        botonDesactivar.type = "button";
-        botonDesactivar.textContent = "Desactivar";
-        botonDesactivar.disabled = estaInactiva;
-
-        if (estaInactiva) {
-            botonDesactivar.title =
-                "Esta mascota ya está inactiva";
-        } else {
-            botonDesactivar.addEventListener("click", () => {
-                desactivarMascota(mascota);
-            });
-        }
-
-        // Separar la acción principal de las opciones administrativas.
-        const accionesTarjeta = document.createElement("div");
+       const accionesTarjeta = document.createElement("div");
         accionesTarjeta.className = "acciones-tarjeta";
+        accionesTarjeta.append(botonDetalles, botonExpediente);
 
-        const accionesAdministrativas = document.createElement("div");
-        accionesAdministrativas.className = "acciones-administrativas";
-
-        accionesAdministrativas.append(
-            botonEditar,
-            botonDesactivar
-        );
-
-        accionesTarjeta.append(
-            botonDetalles,
-            botonExpediente,
-            accionesAdministrativas
-        );
+        if (esAdministrador) {
+            const accionesAdministrativas = document.createElement("div");
+            accionesAdministrativas.className = "acciones-administrativas";
+            accionesAdministrativas.append(botonEditar, botonDesactivar);
+            accionesTarjeta.appendChild(accionesAdministrativas);
+        }
 
         contenido.appendChild(accionesTarjeta);
 
-        tarjeta.append(contenedorImagen, contenido);
+                tarjeta.append(contenedorImagen, contenido);
 
-        listaMascotas.appendChild(tarjeta);
-    });
-}
+                listaMascotas.appendChild(tarjeta);
+            });
+        }
 
 /* =========================================================
    CONSULTAR DETALLES DE UNA MASCOTA
@@ -1068,6 +1077,7 @@ document.getElementById("cancelar-edicion")
 
 // Cargar el catálogo al abrir PawMach.
 document.addEventListener("DOMContentLoaded", () => {
+    configurarInterfazPorRol();
     cargarMascotas();
     configurarFechaNacimiento();
 });

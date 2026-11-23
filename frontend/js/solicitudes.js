@@ -7,6 +7,10 @@ const usuarioActual = JSON.parse(
 );
 
 const mensajeGeneral = document.getElementById("mensaje-general");
+const tituloBienvenida =
+    document.getElementById("titulo-bienvenida");
+const descripcionBienvenida =
+    document.getElementById("descripcion-bienvenida");
 const seccionAdoptante = document.getElementById("seccion-adoptante");
 const seccionAdministrador =
     document.getElementById("seccion-administrador");
@@ -49,6 +53,9 @@ if (!usuarioActual) {
 
     document.getElementById("enlace-mis-solicitudes").hidden = false;
 } else if (usuarioActual.nombreRol === "ADMINISTRADOR") {
+    tituloBienvenida.textContent = "Gestión de solicitudes";
+    descripcionBienvenida.textContent =
+    "Revisa las solicitudes de adopción y ayuda a cada mascota a encontrar un hogar.";
     seccionAdministrador.hidden = false;
     document.getElementById("enlace-usuarios").hidden = false;
     cargarSolicitudesPendientes();
