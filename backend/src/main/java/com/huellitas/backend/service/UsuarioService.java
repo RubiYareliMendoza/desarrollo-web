@@ -114,6 +114,25 @@ public class UsuarioService {
         usuario.setActivo(false);
         usuarioRepository.save(usuario);
     }
+    @Transactional(readOnly = true)
+    public UsuarioRespuestaDTO iniciarSesion(String correo, String contrasena) {
+        Usuario usuario = usuarioRepository.findByCorreo(correo.trim())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.UNAUTHORIZED,
+                        "Correo o contraseña incorrectos"));
+
+        boolean contrasenaCorrecta = passwordEncoder.matches(
+                contrasena,
+                usuario.getContrasenaHash());
+
+        if (!Boolean.TRUE.equals(usuario.getActivo()) || !contrasenaCorrecta) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Correo o contraseña incorrectos");
+        }
+
+        return convertirARespuesta(usuario);
+    }
 
 
 
