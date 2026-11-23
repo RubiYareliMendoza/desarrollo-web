@@ -21,6 +21,12 @@ public class MascotaService {
         this.mascotaRepository = mascotaRepository;
     }
 
+    // Obtiene una mascota mediante su identificador.
+    public Mascota obtenerMascotaPorId(Long id) {
+        return mascotaRepository.findById(id).orElse(null);
+    }
+
+
     // Obtiene todas las mascotas registradas
     public List<Mascota> listarMascotas() {
         return mascotaRepository.findAll();

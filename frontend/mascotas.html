@@ -294,11 +294,13 @@
                     </button>
                 </div>
 
+            
             </form>
-
-            <!-- Mensaje del resultado del registro -->
-            <p id="mensaje-registro" role="status"></p>
         </section>
+
+        <!-- Mensaje visible incluso cuando el formulario se cierra -->
+        <p id="mensaje-registro" role="status" aria-live="polite"></p>
+
 
 
         <!-- =========================================
@@ -317,14 +319,20 @@
                 >
                     ✕
                 </button>
-
-                <!-- Fotografía principal -->
-                <img
-                    id="detalle-imagen"
-                    alt="Fotografía de la mascota"
-                    hidden
-                >
-
+                <!-- Fotografía principal o imagen alternativa -->
+                 <div class="contenedor-imagen-detalle">
+                    <!-- Fotografía guardada de la mascota -->
+                     <img
+                     id="detalle-imagen"
+                     alt="Fotografía de la mascota"
+                     hidden
+                     >
+                     <!-- Imagen alternativa cuando no hay fotografía -->
+                      <div id="detalle-imagen-alternativa" hidden>
+                        <span class="icono-huella" aria-hidden="true">🐾</span>
+                        <span>Fotografía no disponible</span>
+                    </div>
+                </div>
                 <!-- Información general -->
                 <h2 id="detalle-nombre"></h2>
 
