@@ -378,8 +378,21 @@ function mostrarMascotas(mascotas) {
         }
 
         // Botón para desactivar la mascota.
-       const accionesTarjeta = document.createElement("div");
-        accionesTarjeta.className = "acciones-tarjeta";
+       const botonDesactivar = document.createElement("button");
+        botonDesactivar.type = "button";
+        botonDesactivar.textContent = "Desactivar";
+        botonDesactivar.disabled = estaInactiva;
+
+        if (estaInactiva) {
+            botonDesactivar.title = "Esta mascota ya está inactiva";
+        } else {
+            botonDesactivar.addEventListener("click", () => {
+                desactivarMascota(mascota);
+            });
+        }
+        const accionesTarjeta = document.createElement("div");
+      
+       accionesTarjeta.className = "acciones-tarjeta";
         accionesTarjeta.append(botonDetalles, botonExpediente);
 
         if (esAdministrador) {
