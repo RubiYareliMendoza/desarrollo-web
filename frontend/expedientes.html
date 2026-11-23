@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PawMach | Expediente digital</title>
+
+    <!-- Estilos de la página -->
+    <link rel="stylesheet" href="css/mascotas.css">
+    <link rel="stylesheet" href="css/expedientes.css">
+
+    <!-- Funcionalidades del expediente -->
+    <script src="js/expedientes.js" defer></script>
+</head>
+
+<body>
+
+    <!-- =========================================
+         1. ENCABEZADO
+    ========================================= -->
+
+    <header class="encabezado">
+        <h1>🐾 PawMach</h1>
+
+        <nav aria-label="Navegación principal">
+            <a href="mascotas.html">Mascotas</a>
+        </nav>
+    </header>
+
+    <main class="pagina-expediente">
+
+        <!-- =========================================
+             2. ENCABEZADO DEL EXPEDIENTE
+        ========================================= -->
+
+        <section class="bienvenida">
+            <h2>Expediente digital</h2>
+
+            <p>
+                Consulta la información y los cuidados
+                registrados de cada mascota.
+            </p>
+
+            <a href="mascotas.html" class="enlace-volver">
+                ← Volver al catálogo
+            </a>
+        </section>
+
+        <!-- Mensajes generales -->
+        <p id="mensaje-expediente" role="status" aria-live="polite"></p>
+
+        <!-- =========================================
+             3. INFORMACIÓN DE LA MASCOTA
+        ========================================= -->
+
+        <section class="tarjeta-expediente" id="seccion-mascota" hidden>
+
+            <h2>Información de la mascota</h2>
+
+            <div class="perfil-mascota">
+
+                <!-- Fotografía o imagen alternativa -->
+                <div class="foto-perfil-expediente">
+
+                    <img
+                        id="expediente-imagen"
+                        alt="Fotografía de la mascota"
+                        hidden
+                    >
+
+                    <div id="expediente-imagen-alternativa" hidden>
+                        <span aria-hidden="true">🐾</span>
+                        <p>Fotografía no disponible</p>
+                    </div>
+
+                </div>
+
+                <!-- Datos generales -->
+                <div class="datos-perfil-expediente">
+
+                    <h3 id="expediente-nombre">Mascota</h3>
+
+                    <span id="expediente-estado"></span>
+
+                    <dl class="lista-datos-mascota">
+                        <div>
+                            <dt>Especie</dt>
+                            <dd id="expediente-especie">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Raza</dt>
+                            <dd id="expediente-raza">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Sexo</dt>
+                            <dd id="expediente-sexo">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Tamaño</dt>
+                            <dd id="expediente-tamano">—</dd>
+                        </div>
+
+                        <div>
+                            <dt>Fecha de nacimiento estimada</dt>
+                            <dd id="expediente-nacimiento">—</dd>
+                        </div>
+                    </dl>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =========================================
+             4. EXPEDIENTE DIGITAL
+        ========================================= -->
+
+        <section class="tarjeta-expediente" id="seccion-expediente" hidden>
+
+            <div class="encabezado-seccion-expediente">
+                <div>
+                    <h2>Observaciones generales</h2>
+                    <p id="expediente-fecha">Fecha de creación: —</p>
+                </div>
+
+                <button
+                    type="button"
+                    id="boton-editar-expediente"
+                    class="boton-secundario"
+                    hidden
+                >
+                    Editar observaciones
+                </button>
+            </div>
+
+            <!-- Observaciones existentes -->
+            <p id="expediente-observaciones"></p>
+
+            <!-- Formulario para crear o editar -->
+            <form id="form-expediente" hidden>
+
+                <div class="campo-formulario">
+                    <label for="observaciones-generales">
+                        Observaciones generales
+                    </label>
+
+                    <textarea
+                        id="observaciones-generales"
+                        name="observacionesGenerales"
+                        rows="5"
+                        maxlength="3000"
+                        placeholder="Describe los cuidados, necesidades o características importantes de la mascota..."
+                    ></textarea>
+                </div>
+
+                <div class="acciones-formulario">
+                    <button type="submit" id="boton-guardar-expediente">
+                        Guardar expediente
+                    </button>
+
+                    <button
+                        type="button"
+                        id="boton-cancelar-expediente"
+                        class="boton-secundario"
+                        hidden
+                    >
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+
+            <p id="mensaje-formulario-expediente"
+               role="status"
+               aria-live="polite"></p>
+
+        </section>
+
+        <!-- =========================================
+             5. HISTORIAL DE SEGUIMIENTO
+        ========================================= -->
+
+        <section class="tarjeta-expediente" id="seccion-seguimiento" hidden>
+
+            <h2>Historial de seguimiento</h2>
+
+            <p class="texto-secundario">
+                Aquí se mostrarán las vacunas, consultas veterinarias,
+                desparasitaciones y otros registros de la mascota.
+            </p>
+            
+            <div id="contenido-seguimiento">
+                
+                <!-- Aquí aparecerán los registros obtenidos desde MySQL -->
+                 <div id="lista-seguimiento"></div>
+                 <!-- Mensaje cuando todavía no existen registros -->
+                  <div
+                  id="estado-vacio-seguimiento"
+                  class="estado-vacio-seguimiento"
+                  hidden
+                  >
+                  <span aria-hidden="true">📋</span>
+                  <p>Aún no hay registros de seguimiento disponibles.</p>
+                  <small>Las vacunas, consultas y otros eventos aparecerán aquí cuando sean registrados.</small>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
