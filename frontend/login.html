@@ -1,34 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión | PawMach</title>
+
+    <title>Iniciar sesión | PawMatch</title>
+
+    <!-- Estilos del inicio de sesión -->
+    <link rel="stylesheet" href="css/login.css">
+
+    <!-- Lógica original del login -->
     <script src="js/login.js" defer></script>
 </head>
+
 <body>
-    <h1>Iniciar sesión</h1>
 
-    <form id="form-login">
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" required>
+    <main class="pagina-login">
 
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" required>
+        <section class="tarjeta-login">
 
-        <button type="submit">Entrar</button>
-    </form>
+            <!-- Encabezado -->
+            <div class="encabezado-login">
+                <a href="index.html" class="logo-login">
+                    <span aria-hidden="true">🐾</span>
+                    PawMatch
+                </a>
 
-    <p id="mensaje-login" role="status"></p>
-    <p>
-    ¿Aún no tienes cuenta?
-    <button
-        type="button"
-        onclick="window.location.href='registro.html'">
-        Crear cuenta
-    </button>
-</p>
+                <h1>¡Bienvenido de nuevo!</h1>
 
-<p><a href="index.html">Volver al inicio</a></p>
+                <p>
+                    Inicia sesión y continúa ayudando
+                    a nuestros amigos peludos.
+                </p>
+            </div>
+
+            <!-- Formulario -->
+            <form id="form-login">
+
+                <div class="campo-login">
+                    <label for="correo">Correo electrónico</label>
+
+                    <input
+                        type="email"
+                        id="correo"
+                        name="correo"
+                        placeholder="ejemplo@correo.com"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="campo-login">
+                    <label for="contrasena">Contraseña</label>
+
+                    <input
+                        type="password"
+                        id="contrasena"
+                        name="contrasena"
+                        placeholder="Ingresa tu contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="boton-login">
+                    Iniciar sesión
+                </button>
+
+            </form>
+
+            <!-- Mensajes -->
+            <p
+                id="mensaje-login"
+                class="mensaje-login"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- Registro -->
+            <div class="registro-login">
+                <p>¿Aún no tienes una cuenta?</p>
+
+                <a href="registro.html" class="enlace-registro">
+                    Crear cuenta
+                </a>
+            </div>
+
+            <!-- Regresar a la portada -->
+            <a href="index.html" class="volver-inicio">
+                ← Volver al inicio
+            </a>
+
+        </section>
+
+    </main>
+
 </body>
 </html>

@@ -1,0 +1,265 @@
+
+/* =========================================================
+   PAWMATCH - INICIO DE SESIÓN
+========================================================= */
+
+/* 1. CONFIGURACIÓN GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(
+        135deg,
+        #f7f2fc 0%,
+        #fdf7f6 100%
+    );
+    color: #382a46;
+}
+
+
+/* 2. CONTENEDOR PRINCIPAL */
+
+.pagina-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+
+/* 3. TARJETA DEL LOGIN */
+
+.tarjeta-login {
+    width: 100%;
+    max-width: 460px;
+    padding: 42px;
+    background-color: #ffffff;
+    border: 1px solid #e9def2;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(78, 45, 105, 0.10);
+}
+
+
+/* 4. ENCABEZADO */
+
+.encabezado-login {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+
+    color: #7953a3;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.logo-login span {
+    font-size: 28px;
+}
+
+.encabezado-login h1 {
+    margin: 0 0 12px;
+    color: #64418b;
+    font-size: 28px;
+    line-height: 1.3;
+}
+
+.encabezado-login p {
+    margin: 0;
+    color: #81758d;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* 5. CAMPOS DEL FORMULARIO */
+
+#form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.campo-login {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.campo-login label {
+    color: #382a46;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.campo-login input {
+    width: 100%;
+    padding: 15px 16px;
+
+    border: 1px solid #d8c9e6;
+    border-radius: 10px;
+    background-color: #ffffff;
+
+    color: #382a46;
+    font: inherit;
+    font-size: 15px;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo-login input::placeholder {
+    color: #aa9bb6;
+}
+
+.campo-login input:focus {
+    outline: none;
+    border-color: #7953a3;
+    box-shadow: 0 0 0 3px rgba(121, 83, 163, 0.12);
+}
+
+
+/* 6. BOTÓN DE INICIO DE SESIÓN */
+
+.boton-login {
+    width: 100%;
+    margin-top: 6px;
+    padding: 15px;
+
+    background-color: #7953a3;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 10px;
+
+    font: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.boton-login:hover {
+    background-color: #64418b;
+    transform: translateY(-1px);
+}
+
+.boton-login:active {
+    transform: translateY(0);
+}
+
+.boton-login:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+
+/* 7. MENSAJES DEL LOGIN */
+
+.mensaje-login {
+    margin: 0;
+}
+
+.mensaje-login:not(:empty) {
+    margin-top: 20px;
+    padding: 12px 15px;
+    border-radius: 10px;
+
+    background-color: #fff2cf;
+    color: #805d13;
+
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+
+/* 8. REGISTRO DE NUEVOS USUARIOS */
+
+.registro-login {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #eee5f6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    text-align: center;
+}
+
+.registro-login p {
+    margin: 0;
+    color: #81758d;
+    font-size: 14px;
+}
+
+.enlace-registro {
+    color: #7953a3;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.enlace-registro:hover {
+    text-decoration: underline;
+}
+
+
+/* 9. VOLVER A LA PORTADA */
+
+.volver-inicio {
+    display: block;
+    margin-top: 28px;
+
+    color: #7953a3;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+.volver-inicio:hover {
+    text-decoration: underline;
+}
+
+
+/* 10. DISEÑO RESPONSIVO */
+
+@media (max-width: 520px) {
+
+    .pagina-login {
+        padding: 24px 15px;
+    }
+
+    .tarjeta-login {
+        padding: 30px 24px;
+        border-radius: 18px;
+    }
+
+    .logo-login {
+        font-size: 27px;
+    }
+
+    .encabezado-login h1 {
+        font-size: 24px;
+    }
+
+    .encabezado-login p {
+        font-size: 14px;
+    }
+}

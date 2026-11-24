@@ -243,3 +243,289 @@ main {
 .bienvenida h2 {
     font-size: 40px;
 }
+
+/* =========================================================
+   PAWMATCH - MEJORAS DE SOLICITUDES DE ADOPCIÓN
+========================================================= */
+
+/* 1. FORMULARIO DE ADOPCIÓN */
+
+.panel-solicitudes {
+    padding: 36px;
+}
+
+.encabezado-panel {
+    margin-bottom: 26px;
+}
+
+.encabezado-panel h2 {
+    margin-bottom: 10px;
+    color: #64418b;
+    font-size: 27px;
+}
+
+.encabezado-panel p {
+    margin: 0;
+    color: #81758d;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+#form-solicitud {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.campo-solicitud {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.campo-solicitud label {
+    align-self: flex-start;
+    color: #382a46;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.campo-solicitud select,
+.campo-solicitud textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 16px;
+    border: 1px solid #d8c9e6;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #382a46;
+    font: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.campo-solicitud textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.campo-solicitud textarea::placeholder {
+    color: #aa9bb6;
+}
+
+.campo-solicitud select:focus,
+.campo-solicitud textarea:focus {
+    outline: none;
+    border-color: #7953a3;
+    box-shadow: 0 0 0 3px rgba(121, 83, 163, 0.12);
+}
+
+.acciones-solicitud {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.acciones-solicitud button {
+    min-height: 50px;
+    padding: 13px 26px;
+    border-radius: 10px;
+    background-color: #7953a3;
+}
+
+.acciones-solicitud button:hover {
+    background-color: #64418b;
+}
+
+/* 2. SEPARADOR ENTRE FORMULARIO E HISTORIAL */
+
+.separador-solicitudes {
+    height: 1px;
+    margin: 38px 0;
+    background-color: #eee5f6;
+}
+
+/* 3. TARJETAS DE SOLICITUDES */
+
+#lista-mis-solicitudes,
+#lista-pendientes {
+    display: grid;
+    gap: 18px;
+}
+
+.tarjeta-solicitud {
+    padding: 24px;
+    border: 1px solid #e9def2;
+    border-radius: 16px;
+    background-color: #fcfaff;
+    box-shadow: 0 5px 18px rgba(78, 45, 105, 0.05);
+}
+
+.encabezado-tarjeta-solicitud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.encabezado-tarjeta-solicitud h3 {
+    margin: 0;
+    color: #64418b;
+    font-size: 19px;
+}
+
+/* 4. ETIQUETAS DE ESTADO */
+
+.etiqueta-estado {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.estado-pendiente {
+    background-color: #fff0d0;
+    color: #94620f;
+}
+
+.estado-aprobada {
+    background-color: #dcf3e7;
+    color: #286749;
+}
+
+.estado-rechazada {
+    background-color: #fde8e8;
+    color: #a13c48;
+}
+
+.estado-otro {
+    background-color: #eee5f6;
+    color: #64418b;
+}
+
+/* 5. FECHA Y DATOS DEL ADOPTANTE */
+
+.fecha-solicitud {
+    margin: 8px 0 18px;
+    color: #81758d;
+    font-size: 13px;
+}
+
+.datos-adoptante {
+    margin: 14px 0 18px;
+}
+
+.dato-solicitud {
+    margin: 10px 0;
+    color: #493b54;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.dato-solicitud strong {
+    color: #64418b;
+}
+
+/* 6. COMENTARIOS Y MENSAJES */
+
+.comentario-refugio {
+    margin-top: 16px;
+    padding: 18px;
+    border-left: 4px solid #a786c7;
+    border-radius: 10px;
+    background-color: #f8f4fc;
+}
+
+.comentario-refugio h4 {
+    margin: 0 0 10px;
+    color: #64418b;
+    font-size: 14px;
+}
+
+.comentario-refugio p {
+    margin: 0;
+    color: #493b54;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+/* 7. BOTONES DEL ADMINISTRADOR */
+
+.acciones-revision {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.acciones-revision button {
+    min-height: 44px;
+    padding: 11px 22px;
+    border-radius: 9px;
+}
+
+.boton-aprobar {
+    background-color: #7953a3;
+    color: #fff;
+}
+
+.boton-aprobar:hover {
+    background-color: #64418b;
+}
+
+.boton-rechazar {
+    background-color: #fff0f2;
+    color: #a13c48;
+    border: 1px solid #efc5cc;
+}
+
+.boton-rechazar:hover {
+    background-color: #fce3e7;
+}
+
+/* 8. ESTADO VACÍO */
+
+.estado-vacio-solicitudes {
+    padding: 24px;
+    border: 1px dashed #dfd0eb;
+    border-radius: 12px;
+    background-color: #faf7fd;
+    color: #81758d;
+    text-align: center;
+}
+
+/* 9. DISEÑO RESPONSIVO */
+
+@media (max-width: 700px) {
+    .panel-solicitudes {
+        padding: 22px;
+    }
+
+    .encabezado-panel h2 {
+        font-size: 23px;
+    }
+
+    .tarjeta-solicitud {
+        padding: 18px;
+    }
+
+    .encabezado-tarjeta-solicitud {
+        align-items: flex-start;
+    }
+
+    .acciones-revision {
+        flex-direction: column;
+    }
+
+    .acciones-revision button {
+        width: 100%;
+    }
+}

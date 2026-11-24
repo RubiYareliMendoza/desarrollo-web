@@ -194,6 +194,109 @@
                 Aquí se mostrarán las vacunas, consultas veterinarias,
                 desparasitaciones y otros registros de la mascota.
             </p>
+
+<!-- Acciones del historial: solo para administradores -->
+<div class="acciones-seguimiento">
+    <button
+        type="button"
+        id="boton-agregar-seguimiento"
+        class="boton-agregar-seguimiento"
+        hidden
+    >
+        + Agregar registro
+    </button>
+</div>
+
+<!-- Formulario para registrar eventos -->
+<form id="form-seguimiento" class="form-seguimiento" hidden>
+
+    <h3>Registrar evento de seguimiento</h3>
+
+    <div class="grid-form-seguimiento">
+
+        <div class="campo-seguimiento">
+            <label for="seguimiento-tipo">Tipo de evento *</label>
+            <select id="seguimiento-tipo" required>
+                <option value="">Selecciona un tipo</option>
+                <option value="VACUNA">Vacuna</option>
+                <option value="CONSULTA">Consulta veterinaria</option>
+                <option value="DESPARASITACION">Desparasitación</option>
+                <option value="REVISION">Revisión general</option>
+                <option value="OTRO">Otro evento</option>
+            </select>
+        </div>
+
+        <div class="campo-seguimiento">
+            <label for="seguimiento-nombre">Nombre del evento *</label>
+            <input
+                type="text"
+                id="seguimiento-nombre"
+                maxlength="120"
+                placeholder="Ej. Vacuna antirrábica"
+                required
+            >
+        </div>
+
+        <div class="campo-seguimiento">
+            <label for="seguimiento-fecha">Fecha del evento *</label>
+            <input type="date" id="seguimiento-fecha" required>
+        </div>
+
+        <div class="campo-seguimiento">
+            <label for="seguimiento-proxima">Próxima fecha</label>
+            <input type="date" id="seguimiento-proxima">
+        </div>
+
+        <div class="campo-seguimiento">
+            <label for="seguimiento-peso">Peso (kg)</label>
+            <input
+                type="number"
+                id="seguimiento-peso"
+                min="0.01"
+                max="999.99"
+                step="0.01"
+                placeholder="Ej. 8.50"
+            >
+        </div>
+
+        <div class="campo-seguimiento">
+            <label for="seguimiento-veterinario">Veterinario responsable</label>
+            <input
+                type="text"
+                id="seguimiento-veterinario"
+                maxlength="120"
+                placeholder="Ej. Dra. Martínez"
+            >
+        </div>
+
+        <div class="campo-seguimiento campo-completo">
+            <label for="seguimiento-descripcion">Descripción u observaciones</label>
+            <textarea
+                id="seguimiento-descripcion"
+                rows="4"
+                placeholder="Describe los cuidados, tratamiento o indicaciones..."
+            ></textarea>
+        </div>
+
+    </div>
+
+    <div class="acciones-formulario">
+        <button type="submit" id="boton-guardar-seguimiento">
+            Guardar registro
+        </button>
+
+        <button
+            type="button"
+            id="boton-cancelar-seguimiento"
+            class="boton-secundario"
+        >
+            Cancelar
+        </button>
+    </div>
+
+</form>
+
+<p id="mensaje-seguimiento" role="status" aria-live="polite"></p>
             
             <div id="contenido-seguimiento">
                 

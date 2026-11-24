@@ -369,3 +369,157 @@
     color: #806c91;
     font-size: 13px;
 }
+
+/* =========================================================
+   10. FORMULARIO DE REGISTROS DE SEGUIMIENTO
+========================================================= */
+
+.acciones-seguimiento {
+    display: flex;
+    justify-content: flex-end;
+    margin: 18px 0;
+}
+
+.boton-agregar-seguimiento {
+    padding: 12px 20px;
+    background-color: #7953a3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-agregar-seguimiento:hover {
+    background-color: #64418b;
+}
+
+.form-seguimiento {
+    margin: 20px 0 28px;
+    padding: 24px;
+    background-color: #faf7fd;
+    border: 1px solid #e6d9ef;
+    border-radius: 14px;
+}
+
+.form-seguimiento h3 {
+    margin: 0 0 22px;
+    color: #64418b;
+    font-size: 19px;
+}
+
+.grid-form-seguimiento {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.campo-seguimiento {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.campo-seguimiento label {
+    color: #382a46;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.campo-seguimiento input,
+.campo-seguimiento select,
+.campo-seguimiento textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    background-color: white;
+    border: 1px solid #d8c9e6;
+    border-radius: 10px;
+    color: #382a46;
+    font: inherit;
+}
+
+.campo-seguimiento textarea {
+    resize: vertical;
+}
+
+.campo-seguimiento input:focus,
+.campo-seguimiento select:focus,
+.campo-seguimiento textarea:focus {
+    outline: 2px solid #aa8acb;
+    outline-offset: 2px;
+}
+
+.campo-completo {
+    grid-column: 1 / -1;
+}
+
+.form-seguimiento .acciones-formulario {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+#mensaje-seguimiento:not(:empty) {
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@media (max-width: 760px) {
+    .grid-form-seguimiento {
+        grid-template-columns: 1fr;
+    }
+
+    .form-seguimiento {
+        padding: 18px;
+    }
+}
+
+/* =========================================================
+   11. ACCIONES DE EDICIÓN Y ELIMINACIÓN
+========================================================= */
+
+.acciones-registro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid #e6d9ef;
+}
+
+.boton-editar-registro,
+.boton-eliminar-registro {
+    padding: 10px 18px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-editar-registro {
+    background-color: #eee5f6;
+    color: #64418b;
+    border: 1px solid #d8c9e6;
+}
+
+.boton-editar-registro:hover {
+    background-color: #e4d5f1;
+}
+
+.boton-eliminar-registro {
+    background-color: #fff5f5;
+    color: #a13c48;
+    border: 1px solid #f0c5cc;
+}
+
+.boton-eliminar-registro:hover {
+    background-color: #fce6e9;
+}
