@@ -1,10 +1,17 @@
+
+/* =========================================================
+   PAWMATCH - REGISTRO DE ADOPTANTES
+========================================================= */
+
+/* 1. COLORES GENERALES */
+
 :root {
-    --morado: #7654a3;
-    --morado-oscuro: #5d4385;
-    --texto: #302943;
-    --texto-suave: #716b7d;
-    --fondo: #f8f5fc;
-    --borde: #e8def1;
+    --morado: #7953a3;
+    --morado-oscuro: #64418b;
+    --texto: #382a46;
+    --texto-suave: #81758d;
+    --fondo: #f8f4fc;
+    --borde: #e9def2;
 }
 
 * {
@@ -14,34 +21,56 @@
 body {
     min-height: 100vh;
     margin: 0;
+
     display: flex;
     flex-direction: column;
-    font-family: Arial, sans-serif;
+
+    font-family: Arial, Helvetica, sans-serif;
     color: var(--texto);
-    background: var(--fondo);
+
+    background: linear-gradient(
+        135deg,
+        #f7f2fc 0%,
+        #fdf7f6 100%
+    );
 }
 
+
+/* 2. ENCABEZADO SUPERIOR */
+
 .encabezado {
-    min-height: 100px;
+    min-height: 90px;
     padding: 18px 7%;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    background: #fff;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+    background-color: #ffffff;
+    box-shadow: 0 2px 12px rgba(78, 45, 105, 0.06);
 }
 
 .marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
     color: var(--morado);
     text-decoration: none;
-    font-size: 36px;
+
+    font-size: 34px;
     font-weight: 800;
     letter-spacing: -1px;
 }
 
+.marca span {
+    font-size: 27px;
+}
+
 .enlace-regreso {
-    color: var(--morado-oscuro);
+    color: var(--morado);
+    font-size: 15px;
     font-weight: 700;
     text-decoration: none;
 }
@@ -50,50 +79,93 @@ body {
     text-decoration: underline;
 }
 
-main {
-    width: min(760px, 92%);
-    margin: 42px auto;
+
+/* 3. CONTENEDOR PRINCIPAL */
+
+.pagina-registro {
+    width: min(820px, 92%);
+    margin: 48px auto 60px;
     flex: 1;
 }
 
+
+/* 4. TARJETA DE REGISTRO */
+
 .panel-registro {
-    padding: 36px;
+    padding: 42px 48px;
+
+    background-color: #ffffff;
     border: 1px solid var(--borde);
     border-radius: 24px;
-    background: #fff;
-    box-shadow: 0 8px 26px rgba(48, 41, 67, 0.07);
+
+    box-shadow: 0 12px 35px rgba(78, 45, 105, 0.09);
+}
+
+
+/* 5. MENSAJE DE BIENVENIDA */
+
+.encabezado-formulario {
+    margin-bottom: 34px;
+    text-align: center;
+}
+
+.icono-bienvenida {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin-bottom: 20px;
+
+    border-radius: 50%;
+    background-color: #f1e8f9;
+
+    font-size: 29px;
 }
 
 .etiqueta {
     margin: 0 0 10px;
+
     color: var(--morado);
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
 .panel-registro h1 {
-    margin: 0 0 10px;
+    margin: 0 0 14px;
+
     color: var(--morado-oscuro);
-    font-size: 32px;
+    font-size: 30px;
+    line-height: 1.3;
 }
 
 .introduccion {
-    margin: 0 0 28px;
+    max-width: 510px;
+    margin: 0 auto;
+
     color: var(--texto-suave);
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7;
 }
+
+
+/* 6. FORMULARIO */
 
 #form-registro {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    gap: 22px;
 }
 
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
+    min-width: 0;
 }
 
 .campo-completo {
@@ -101,93 +173,204 @@ main {
 }
 
 .campo label {
-    font-weight: 700;
+    color: var(--texto);
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .campo input {
     width: 100%;
-    min-height: 46px;
-    padding: 11px 13px;
-    border: 1px solid #d7cde5;
-    border-radius: 9px;
-    background: #fff;
+    min-height: 52px;
+
+    padding: 14px 15px;
+
+    border: 1px solid #d8c9e6;
+    border-radius: 10px;
+
+    background-color: #ffffff;
     color: var(--texto);
+
     font: inherit;
+    font-size: 15px;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input::placeholder {
+    color: #aa9bb6;
 }
 
 .campo input:focus {
-    outline: 2px solid #af94d2;
+    outline: none;
     border-color: var(--morado);
+    box-shadow: 0 0 0 3px rgba(121, 83, 163, 0.12);
 }
 
 .campo small {
     color: var(--texto-suave);
+    font-size: 12px;
+    line-height: 1.5;
 }
 
-#form-registro button {
+
+/* 7. NOTA Y BOTÓN DE REGISTRO */
+
+.nota-formulario {
     grid-column: 1 / -1;
-    min-height: 48px;
+
+    margin: 0;
+    color: var(--texto-suave);
+    font-size: 12px;
+}
+
+.boton-registro {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    min-height: 54px;
+
+    background-color: var(--morado);
+    color: #ffffff;
+
     border: none;
-    border-radius: 9px;
-    background: var(--morado);
-    color: #fff;
+    border-radius: 10px;
+
+    font: inherit;
     font-size: 16px;
     font-weight: 700;
+
     cursor: pointer;
+
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-#form-registro button:hover {
-    background: var(--morado-oscuro);
+.boton-registro:hover {
+    background-color: var(--morado-oscuro);
+    transform: translateY(-1px);
 }
 
-#form-registro button:disabled {
+.boton-registro:active {
+    transform: translateY(0);
+}
+
+.boton-registro:disabled {
     opacity: 0.65;
     cursor: wait;
 }
 
-#mensaje-registro {
-    min-height: 24px;
-    margin: 18px 0 0;
-    color: var(--morado-oscuro);
-    font-weight: 700;
-}
 
-footer {
-    padding: 24px;
-    background: #fff;
-    color: var(--texto-suave);
+/* 8. MENSAJES DEL REGISTRO */
+
+#mensaje-registro {
+    margin: 0;
+    color: var(--morado-oscuro);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
     text-align: center;
 }
 
+#mensaje-registro:not(:empty) {
+    margin-top: 22px;
+    padding: 14px 18px;
+
+    border: 1px solid #e5d7ef;
+    border-radius: 10px;
+    background-color: #f8f2fc;
+}
+
+
+/* 9. ENLACE PARA INICIAR SESIÓN */
+
+.pie-formulario {
+    margin-top: 30px;
+    padding-top: 24px;
+
+    border-top: 1px solid #eee5f6;
+    text-align: center;
+}
+
+.pie-formulario p {
+    margin: 0;
+    color: var(--texto-suave);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.pie-formulario a {
+    color: var(--morado);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.pie-formulario a:hover {
+    text-decoration: underline;
+}
+
+
+/* 10. PIE DE PÁGINA */
+
+.pie-pagina {
+    padding: 24px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.pie-pagina p {
+    margin: 5px 0;
+    color: var(--texto-suave);
+    font-size: 13px;
+}
+
+
+/* 11. DISEÑO RESPONSIVO */
+
 @media (max-width: 600px) {
+
     .encabezado {
-        min-height: 84px;
+        min-height: 76px;
         padding: 16px 5%;
     }
 
     .marca {
-        font-size: 30px;
+        font-size: 25px;
     }
 
-    main {
-        margin: 24px auto;
+    .marca span {
+        font-size: 23px;
+    }
+
+    .enlace-regreso {
+        font-size: 12px;
+    }
+
+    .pagina-registro {
+        width: 94%;
+        margin: 24px auto 40px;
     }
 
     .panel-registro {
-        padding: 24px;
+        padding: 28px 22px;
+        border-radius: 18px;
     }
 
     .panel-registro h1 {
-        font-size: 27px;
+        font-size: 25px;
+    }
+
+    .introduccion {
+        font-size: 14px;
     }
 
     #form-registro {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 18px;
     }
 
     .campo-completo,
-    #form-registro button {
+    .nota-formulario,
+    .boton-registro {
         grid-column: auto;
     }
 }

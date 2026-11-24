@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PawMach | Solicitudes de adopción</title>
+    <title>PawMatch | Solicitudes de adopción</title>
+
+    <!-- Hojas de estilos -->
     <link rel="stylesheet" href="css/solicitudes.css">
+    <link rel="stylesheet" href="css/navegacion.css">
+
+    <!-- Archivos JavaScript -->
     <script src="js/solicitudes.js?v=2" defer></script>
+    <script src="js/navegacion.js" defer></script>
 </head>
 
 <body>
+
+    <!-- =========================================
+         1. ENCABEZADO Y NAVEGACIÓN
+    ========================================= -->
+
     <header class="encabezado">
         <h1>🐾 PawMatch</h1>
 
-        <nav aria-label="Navegación principal">
-            <a href="mascotas.html">Mascotas</a>
-           
-            <a id="enlace-usuarios" href="usuarios.html" hidden>
-                Administrar usuarios
-            </a>
-            <button id="cerrar-sesion" type="button">
-                Cerrar sesión
-            </button>
+        <nav class="nav-unificada" aria-label="Navegación principal">
+            <a href="mascotas.html" class="nav-enlace">Mascotas</a>
+            <a id="link-mis-solicitudes" href="solicitudes.html" class="nav-enlace" hidden>Solicitudes</a>
+            <a id="enlace-usuarios" href="usuarios.html" class="nav-enlace" hidden>Usuarios</a>
+            <button id="cerrar-sesion" type="button" class="nav-cerrar-sesion">Cerrar sesión</button>
         </nav>
     </header>
 
+    <!-- =========================================
+         2. CONTENIDO PRINCIPAL
+    ========================================= -->
+
     <main>
+
+        <!-- 2.1. BIENVENIDA -->
+
         <section class="bienvenida">
             <h2 id="titulo-bienvenida">Tu próxima historia comienza aquí</h2>
             <p id="descripcion-bienvenida">
@@ -32,43 +47,81 @@
             </p>
         </section>
 
+        <!-- Mensajes generales -->
         <p id="mensaje-general" role="status"></p>
 
+        <!-- =========================================
+             3. SOLICITUDES DEL ADOPTANTE
+        ========================================= -->
+
         <section id="seccion-adoptante" class="panel-solicitudes" hidden>
-            <h2>Solicitar una adopción</h2>
+
+            <!-- Formulario para solicitar una adopción -->
+            <div class="encabezado-panel">
+                <h2>Solicitar una adopción</h2>
+                <p>
+                    Elige a tu próximo compañero y cuéntanos por qué deseas
+                    brindarle un hogar.
+                </p>
+            </div>
 
             <form id="form-solicitud">
+
                 <div class="campo-solicitud">
-                    <label for="mascota">Mascota disponible</label>
+                    <label for="mascota">Mascota disponible *</label>
                     <select id="mascota" required>
                         <option value="">Cargando mascotas...</option>
                     </select>
                 </div>
 
                 <div class="campo-solicitud">
-                    <label for="mensaje-solicitud">
-                        Mensaje para el refugio
-                    </label>
-                    <textarea id="mensaje-solicitud" maxlength="2000"></textarea>
+                    <label for="mensaje-solicitud">Mensaje para el refugio</label>
+                    <textarea id="mensaje-solicitud" maxlength="2000" rows="4"
+                        placeholder="Cuéntanos por qué te gustaría adoptar y cómo sería su nuevo hogar..."></textarea>
                 </div>
 
-                <button type="submit">Enviar solicitud</button>
+                <div class="acciones-solicitud">
+                    <button type="submit">Enviar solicitud</button>
+                </div>
+
             </form>
 
-            <h2 id="mis-solicitudes">Mis solicitudes</h2>
+            <!-- Separador entre formulario y solicitudes -->
+            <div class="separador-solicitudes"></div>
+
+            <!-- Historial de solicitudes del adoptante -->
+            <div class="encabezado-panel">
+                <h2 id="mis-solicitudes">Mis solicitudes</h2>
+                <p>
+                    Consulta el estado de tus solicitudes y las respuestas del refugio.
+                </p>
+            </div>
+
+            <!-- Solicitudes generadas mediante JavaScript -->
             <div id="lista-mis-solicitudes"></div>
+
         </section>
 
-        <section id="seccion-administrador"
-                 class="panel-solicitudes"
-                 hidden>
+        <!-- =========================================
+             4. SOLICITUDES DEL ADMINISTRADOR
+        ========================================= -->
+
+        <section id="seccion-administrador" class="panel-solicitudes" hidden>
             <h2>Solicitudes pendientes</h2>
+
+            <!-- Solicitudes pendientes generadas mediante JavaScript -->
             <div id="lista-pendientes"></div>
         </section>
+
     </main>
+
+    <!-- =========================================
+         5. PIE DE PÁGINA
+    ========================================= -->
 
     <footer class="pie-pagina">
         <p>Huellitas - Sistema de adopción de mascotas</p>
     </footer>
+
 </body>
 </html>

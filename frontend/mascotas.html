@@ -9,9 +9,11 @@
 
     <!-- Estilos de la página -->
     <link rel="stylesheet" href="css/mascotas.css">
+    <link rel="stylesheet" href="css/navegacion.css">
 
     <!-- Funcionalidades del catálogo -->
     <script src="js/mascotas.js" defer></script>
+    <script src="js/navegacion.js" defer></script>
 </head>
 
 <body>
@@ -20,18 +22,43 @@
          1. ENCABEZADO
     ========================================= -->
 
-    <header class="encabezado">
-        <h1>🐾 PawMatch</h1>
+<header class="encabezado">
+    <h1>🐾 PawMatch</h1>
 
-        <nav aria-label="Navegación principal">
-            <a href="mascotas.html">Mascotas</a>
+    <nav class="nav-unificada" aria-label="Navegación principal">
 
-            <a id="link-mis-solicitudes" href="solicitudes.html" hidden>
-                Mis solicitudes
-            </a>
-        </nav>
-    </header>
+        <a href="mascotas.html" class="nav-enlace">
+            Mascotas
+        </a>
 
+        <a
+            id="link-mis-solicitudes"
+            href="solicitudes.html"
+            class="nav-enlace"
+            hidden
+        >
+            Solicitudes
+        </a>
+
+        <a
+            id="enlace-usuarios"
+            href="usuarios.html"
+            class="nav-enlace"
+            hidden
+        >
+            Usuarios
+        </a>
+
+        <button
+            id="cerrar-sesion"
+            type="button"
+            class="nav-cerrar-sesion"
+        >
+            Cerrar sesión
+        </button>
+
+    </nav>
+</header>
 
     <main>
 

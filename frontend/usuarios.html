@@ -1,86 +1,249 @@
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PawMach | Usuarios</title>
 
+    <title>PawMatch | Usuarios</title>
+
+    <!-- Hojas de estilos -->
     <link rel="stylesheet" href="css/usuarios.css?v=2">
+    <link rel="stylesheet" href="css/navegacion.css">
+
+    <!-- Archivos JavaScript -->
     <script src="js/usuarios.js" defer></script>
+    <script src="js/navegacion.js" defer></script>
 </head>
+
 <body>
+
+    <!-- =========================================
+         1. ENCABEZADO Y NAVEGACIÓN
+    ========================================= -->
+
     <header class="encabezado">
         <h1>🐾 PawMatch</h1>
-        <nav>
-            <a href="mascotas.html">Mascotas</a>
-            <a href="solicitudes.html" aria-current="page">Solicitudes</a>
+
+        <nav class="nav-unificada" aria-label="Navegación principal">
+
+            <a href="mascotas.html" class="nav-enlace">
+                Mascotas
+            </a>
+
+            <a
+                id="link-mis-solicitudes"
+                href="solicitudes.html"
+                class="nav-enlace"
+                hidden
+            >
+                Solicitudes
+            </a>
+
+            <a
+                id="enlace-usuarios"
+                href="usuarios.html"
+                class="nav-enlace"
+                hidden
+            >
+                Usuarios
+            </a>
+
+            <button
+                id="cerrar-sesion"
+                type="button"
+                class="nav-cerrar-sesion"
+            >
+                Cerrar sesión
+            </button>
+
         </nav>
     </header>
 
+    <!-- =========================================
+         2. CONTENIDO PRINCIPAL
+    ========================================= -->
+
     <main>
+
+        <!-- 2.1. BIENVENIDA -->
+
         <section class="bienvenida">
             <h2>Administración de usuarios</h2>
-            <p>Consulta y administra las cuentas registradas en Huellitas.</p>
+
+            <p>
+                Consulta y administra las cuentas registradas en Huellitas.
+            </p>
         </section>
+
+        <!-- =====================================
+             3. FILTROS DE USUARIOS
+        ===================================== -->
 
         <section class="filtros">
             <h2>Buscar usuarios</h2>
 
             <form id="form-filtros">
-                <label for="filtro-activo">Estado</label>
-                <select id="filtro-activo">
-                    <option value="">Todos</option>
-                    <option value="true">Activos</option>
-                    <option value="false">Inactivos</option>
-                </select>
 
-                <label for="filtro-rol">Rol</label>
-                <select id="filtro-rol">
-                    <option value="">Todos</option>
-                    <option value="ADOPTANTE">Adoptante</option>
-                    <option value="ADMINISTRADOR">Administrador</option>
-                </select>
+                <!-- Filtrar por estado -->
+                <div class="campo-filtro">
+                    <label for="filtro-activo">Estado</label>
 
-                <button type="submit">Filtrar</button>
-                <button type="reset">Limpiar filtros</button>
+                    <select id="filtro-activo">
+                        <option value="">Todos</option>
+                        <option value="true">Activos</option>
+                        <option value="false">Inactivos</option>
+                    </select>
+                </div>
+
+                <!-- Filtrar por rol -->
+                <div class="campo-filtro">
+                    <label for="filtro-rol">Rol</label>
+
+                    <select id="filtro-rol">
+                        <option value="">Todos</option>
+                        <option value="ADOPTANTE">Adoptante</option>
+                        <option value="ADMINISTRADOR">Administrador</option>
+                    </select>
+                </div>
+
+                <!-- Acciones de filtros -->
+                <div class="acciones-filtros">
+                    <button type="submit">
+                        Filtrar
+                    </button>
+
+                    <button type="reset">
+                        Limpiar filtros
+                    </button>
+                </div>
+
             </form>
         </section>
+
+        <!-- =====================================
+             4. REGISTRO DE USUARIOS
+        ===================================== -->
 
         <section class="registro">
             <h2>Registrar usuario</h2>
 
             <form id="form-registro">
-                <label for="registro-nombres">Nombres *</label>
-                <input id="registro-nombres" type="text" maxlength="100" required>
 
-                <label for="registro-apellidos">Apellidos *</label>
-                <input id="registro-apellidos" type="text" maxlength="100" required>
+                <!-- Nombres -->
+                <div class="campo-usuario">
+                    <label for="registro-nombres">Nombres *</label>
 
-                <label for="registro-correo">Correo *</label>
-                <input id="registro-correo" type="email" maxlength="150" required>
+                    <input
+                        id="registro-nombres"
+                        type="text"
+                        maxlength="100"
+                        autocomplete="given-name"
+                        placeholder="Ingresa los nombres"
+                        required
+                    >
+                </div>
 
-                <label for="registro-contrasena">Contraseña *</label>
-                <input id="registro-contrasena" type="password" required>
+                <!-- Apellidos -->
+                <div class="campo-usuario">
+                    <label for="registro-apellidos">Apellidos *</label>
 
-                <label for="registro-telefono">Teléfono</label>
-                <input id="registro-telefono" type="tel" maxlength="20">
+                    <input
+                        id="registro-apellidos"
+                        type="text"
+                        maxlength="100"
+                        autocomplete="family-name"
+                        placeholder="Ingresa los apellidos"
+                        required
+                    >
+                </div>
 
-                <label for="registro-direccion">Dirección</label>
-                <input id="registro-direccion" type="text" maxlength="255">
+                <!-- Correo electrónico -->
+                <div class="campo-usuario">
+                    <label for="registro-correo">
+                        Correo electrónico *
+                    </label>
 
-                <button type="submit">Registrar</button>
+                    <input
+                        id="registro-correo"
+                        type="email"
+                        maxlength="150"
+                        autocomplete="email"
+                        placeholder="ejemplo@correo.com"
+                        required
+                    >
+                </div>
+
+                <!-- Contraseña -->
+                <div class="campo-usuario">
+                    <label for="registro-contrasena">Contraseña *</label>
+
+                    <input
+                        id="registro-contrasena"
+                        type="password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        placeholder="Mínimo 8 caracteres"
+                        required
+                    >
+                </div>
+
+                <!-- Teléfono -->
+                <div class="campo-usuario">
+                    <label for="registro-telefono">Teléfono</label>
+
+                    <input
+                        id="registro-telefono"
+                        type="tel"
+                        maxlength="20"
+                        autocomplete="tel"
+                        placeholder="Ej. 2281234567"
+                    >
+                </div>
+
+                <!-- Dirección -->
+                <div class="campo-usuario">
+                    <label for="registro-direccion">Dirección</label>
+
+                    <input
+                        id="registro-direccion"
+                        type="text"
+                        maxlength="255"
+                        autocomplete="street-address"
+                        placeholder="Ingresa la dirección"
+                    >
+                </div>
+
+                <!-- Botón de registro -->
+                <div class="acciones-usuario">
+                    <button
+                        type="submit"
+                        class="boton-principal-usuario"
+                    >
+                        Registrar usuario
+                    </button>
+                </div>
+
             </form>
 
+            <!-- Mensaje del registro -->
             <p id="mensaje-registro" role="status"></p>
         </section>
 
+        <!-- =====================================
+             5. LISTADO DE USUARIOS
+        ===================================== -->
+
         <section class="catalogo">
             <h2>Usuarios registrados</h2>
+
             <p id="mensaje-listado" role="status">
                 Cargando usuarios...
             </p>
 
             <div class="tabla-contenedor">
+
                 <table>
                     <thead>
                         <tr>
@@ -93,39 +256,109 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
+
+                    <!-- Usuarios cargados mediante JavaScript -->
                     <tbody id="lista-usuarios"></tbody>
                 </table>
+
             </div>
         </section>
 
-        <section class="edicion" id="seccion-edicion" hidden>
+        <!-- =====================================
+             6. EDICIÓN DE USUARIOS
+        ===================================== -->
+
+        <section
+            class="edicion"
+            id="seccion-edicion"
+            hidden
+        >
             <h2>Actualizar usuario</h2>
 
             <form id="form-edicion">
+
+                <!-- Identificador del usuario -->
                 <input type="hidden" id="editar-id">
 
-                <label for="editar-nombres">Nombres *</label>
-                <input id="editar-nombres" type="text" maxlength="100" required>
+                <!-- Nombres -->
+                <div class="campo-usuario">
+                    <label for="editar-nombres">Nombres *</label>
 
-                <label for="editar-apellidos">Apellidos *</label>
-                <input id="editar-apellidos" type="text" maxlength="100" required>
+                    <input
+                        id="editar-nombres"
+                        type="text"
+                        maxlength="100"
+                        required
+                    >
+                </div>
 
-                <label for="editar-telefono">Teléfono</label>
-                <input id="editar-telefono" type="tel" maxlength="20">
+                <!-- Apellidos -->
+                <div class="campo-usuario">
+                    <label for="editar-apellidos">Apellidos *</label>
 
-                <label for="editar-direccion">Dirección</label>
-                <input id="editar-direccion" type="text" maxlength="255">
+                    <input
+                        id="editar-apellidos"
+                        type="text"
+                        maxlength="100"
+                        required
+                    >
+                </div>
 
-                <button type="submit">Guardar cambios</button>
-                <button type="button" id="cancelar-edicion">Cancelar</button>
+                <!-- Teléfono -->
+                <div class="campo-usuario">
+                    <label for="editar-telefono">Teléfono</label>
+
+                    <input
+                        id="editar-telefono"
+                        type="tel"
+                        maxlength="20"
+                    >
+                </div>
+
+                <!-- Dirección -->
+                <div class="campo-usuario">
+                    <label for="editar-direccion">Dirección</label>
+
+                    <input
+                        id="editar-direccion"
+                        type="text"
+                        maxlength="255"
+                    >
+                </div>
+
+                <!-- Acciones de edición -->
+                <div class="acciones-usuario">
+                    <button
+                        type="submit"
+                        class="boton-principal-usuario"
+                    >
+                        Guardar cambios
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelar-edicion"
+                        class="boton-cancelar-usuario"
+                    >
+                        Cancelar
+                    </button>
+                </div>
+
             </form>
 
+            <!-- Mensajes de actualización -->
             <p id="mensaje-edicion" role="status"></p>
         </section>
+
     </main>
+
+    <!-- =========================================
+         7. PIE DE PÁGINA
+    ========================================= -->
 
     <footer>
         <p>Huellitas - Sistema de adopción de mascotas</p>
     </footer>
+
 </body>
 </html>

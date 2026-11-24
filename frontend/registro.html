@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Crear cuenta | PawMatch</title>
+
     <link rel="stylesheet" href="css/registro.css">
     <script src="js/registro.js" defer></script>
 </head>
 
 <body>
+
+    <!-- ENCABEZADO -->
     <header class="encabezado">
-        <a class="marca" href="index.html">🐾 PawMatch</a>
-        <a class="enlace-regreso" href="login.html">Ya tengo una cuenta</a>
+        <a class="marca" href="index.html">
+            <span aria-hidden="true">🐾</span>
+            PawMatch
+        </a>
+
+        <a class="enlace-regreso" href="login.html">
+            Ya tengo una cuenta
+        </a>
     </header>
 
-    <main>
-        <section class="panel-registro">
-            <p class="etiqueta">Únete a PawMatch</p>
-            <h1>Crear cuenta de adoptante</h1>
-            <p class="introduccion">
-                Regístrate para enviar solicitudes y seguir su estado.
-            </p>
+    <main class="pagina-registro">
 
+        <section class="panel-registro">
+
+            <!-- BIENVENIDA -->
+            <div class="encabezado-formulario">
+
+                <span class="icono-bienvenida" aria-hidden="true">🐾</span>
+
+                <p class="etiqueta">Únete a nuestra familia</p>
+
+                <h1>¡Comienza una historia de amor!</h1>
+
+                <p class="introduccion">
+                    Crea tu cuenta de adoptante y da el primer
+                    paso para encontrar a tu próximo compañero.
+                </p>
+
+            </div>
+
+            <!-- FORMULARIO -->
             <form id="form-registro">
+
                 <div class="campo">
                     <label for="nombres">Nombres *</label>
                     <input
@@ -30,6 +55,7 @@
                         id="nombres"
                         maxlength="100"
                         autocomplete="given-name"
+                        placeholder="Ingresa tus nombres"
                         required
                     >
                 </div>
@@ -41,6 +67,7 @@
                         id="apellidos"
                         maxlength="100"
                         autocomplete="family-name"
+                        placeholder="Ingresa tus apellidos"
                         required
                     >
                 </div>
@@ -52,6 +79,7 @@
                         id="correo"
                         maxlength="150"
                         autocomplete="email"
+                        placeholder="ejemplo@correo.com"
                         required
                     >
                 </div>
@@ -63,9 +91,13 @@
                         id="contrasena"
                         minlength="8"
                         autocomplete="new-password"
+                        placeholder="Crea una contraseña segura"
+                        aria-describedby="ayuda-contrasena"
                         required
                     >
-                    <small>Debe tener al menos 8 caracteres.</small>
+                    <small id="ayuda-contrasena">
+                        Tu contraseña debe tener al menos 8 caracteres.
+                    </small>
                 </div>
 
                 <div class="campo">
@@ -75,6 +107,7 @@
                         id="telefono"
                         maxlength="20"
                         autocomplete="tel"
+                        placeholder="Ej. 2281234567"
                     >
                 </div>
 
@@ -85,19 +118,45 @@
                         id="direccion"
                         maxlength="255"
                         autocomplete="street-address"
+                        placeholder="Ciudad, colonia o dirección"
                     >
                 </div>
 
-                <button type="submit">Crear cuenta</button>
+                <p class="nota-formulario">
+                    Los campos marcados con * son obligatorios.
+                </p>
+
+                <button type="submit" class="boton-registro">
+                    Crear mi cuenta
+                </button>
+
             </form>
 
-            <p id="mensaje-registro" role="status" aria-live="polite"></p>
+            <!-- MENSAJES DEL REGISTRO -->
+            <p
+                id="mensaje-registro"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- ENLACE AL LOGIN -->
+            <div class="pie-formulario">
+                <p>
+                    ¿Ya formas parte de PawMatch?
+                    <a href="login.html">Inicia sesión aquí</a>
+                </p>
+            </div>
+
         </section>
+
     </main>
 
-    <footer>
-        <p>PawMach · Refugio Huellitas</p>
+    <footer class="pie-pagina">
+        <p>🐾 PawMatch · Refugio Huellitas</p>
+        <p>Un hogar, una nueva oportunidad.</p>
     </footer>
+
 </body>
 </html>
+
 

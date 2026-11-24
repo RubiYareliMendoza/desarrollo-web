@@ -51,7 +51,6 @@ if (!usuarioActual) {
         .getElementById("form-solicitud")
         .addEventListener("submit", enviarSolicitud);
 
-    document.getElementById("enlace-mis-solicitudes").hidden = false;
 } else if (usuarioActual.nombreRol === "ADMINISTRADOR") {
     tituloBienvenida.textContent = "Gestión de solicitudes";
     descripcionBienvenida.textContent =
@@ -62,6 +61,62 @@ if (!usuarioActual) {
 } else {
     sessionStorage.removeItem("usuarioActual");
     window.location.href = "login.html";
+}
+
+// Convertir las fechas de MySQL a un formato legible.
+function formatearFechaSolicitud(fecha) {
+    if (!fecha) return "Fecha no disponible";
+
+    const partes = fecha.substring(0, 10).split("-");
+
+    if (partes.length !== 3) return fecha;
+
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+}
+
+// Crear una etiqueta visual según el estado.
+function crearEtiquetaEstado(estado) {
+    const etiqueta = document.createElement("span");
+
+    const estadosPermitidos = [
+        "PENDIENTE",
+        "APROBADA",
+        "RECHAZADA"
+    ];
+
+    const estadoNormalizado = estadosPermitidos.includes(estado)
+        ? estado
+        : "OTRO";
+
+    etiqueta.className =
+        `etiqueta-estado estado-${estadoNormalizado.toLowerCase()}`;
+
+    const nombres = {
+        PENDIENTE: "Pendiente",
+        APROBADA: "Aprobada",
+        RECHAZADA: "Rechazada",
+        OTRO: "Sin especificar"
+    };
+
+    etiqueta.textContent = nombres[estadoNormalizado];
+
+    return etiqueta;
+}
+
+// Crear un dato con su etiqueta.
+function crearDatoSolicitud(etiqueta, valor) {
+    const parrafo = document.createElement("p");
+    parrafo.className = "dato-solicitud";
+
+    const titulo = document.createElement("strong");
+    titulo.textContent = `${etiqueta}: `;
+
+    const contenido = document.createElement("span");
+    contenido.textContent = valor || "No especificado";
+
+    parrafo.append(titulo, contenido);
+
+    return parrafo;
 }
 
 async function cargarMascotasDisponibles() {
@@ -127,9 +182,12 @@ async function enviarSolicitud(evento) {
     }
 }
 
+
 async function cargarMisSolicitudes() {
+
     const contenedor =
         document.getElementById("lista-mis-solicitudes");
+
     contenedor.replaceChildren(
         crearParrafo("Cargando solicitudes...")
     );
@@ -142,36 +200,81 @@ async function cargarMisSolicitudes() {
         contenedor.replaceChildren();
 
         if (solicitudes.length === 0) {
-            contenedor.appendChild(
-                crearParrafo("Todavía no tienes solicitudes.")
+            const vacio = crearParrafo(
+                "Todavía no tienes solicitudes de adopción."
             );
+
+            vacio.className = "estado-vacio-solicitudes";
+            contenedor.appendChild(vacio);
             return;
         }
 
         solicitudes.forEach((solicitud) => {
+
             const tarjeta = document.createElement("article");
-            const titulo = document.createElement("h3");
-            titulo.textContent = solicitud.nombreMascota;
-            tarjeta.append(
-                titulo,
-                crearParrafo(`Estado: ${solicitud.estado}`),
-                crearParrafo(`Fecha: ${solicitud.fechaSolicitud}`),
-                crearParrafo(
-                    solicitud.observacionesRevision || "Sin observaciones"
-                )
+            tarjeta.className = "tarjeta-solicitud";
+
+            // Encabezado con mascota y estado.
+            const encabezado = document.createElement("div");
+            encabezado.className = "encabezado-tarjeta-solicitud";
+
+            const nombre = document.createElement("h3");
+            nombre.textContent = `🐾 ${solicitud.nombreMascota}`;
+
+            const estado = crearEtiquetaEstado(solicitud.estado);
+
+            encabezado.append(nombre, estado);
+
+            // Fecha de envío.
+            const fecha = document.createElement("p");
+            fecha.className = "fecha-solicitud";
+            fecha.textContent =
+                `Solicitud enviada el ${formatearFechaSolicitud(
+                    solicitud.fechaSolicitud
+                )}`;
+
+            tarjeta.append(encabezado, fecha);
+
+            // Comentario del refugio.
+            const comentario = document.createElement("div");
+            comentario.className = "comentario-refugio";
+
+            const tituloComentario = document.createElement("h4");
+            tituloComentario.textContent = "Comentario del refugio";
+
+            const textoComentario = document.createElement("p");
+            textoComentario.textContent =
+                solicitud.observacionesRevision ||
+                "Tu solicitud está pendiente de revisión.";
+
+            comentario.append(
+                tituloComentario,
+                textoComentario
             );
+
+            tarjeta.appendChild(comentario);
+
             contenedor.appendChild(tarjeta);
         });
+
     } catch (error) {
         contenedor.replaceChildren(
-            crearParrafo(`No se pudieron cargar: ${error.message}`)
+            crearParrafo(
+                `No se pudieron cargar las solicitudes: ${error.message}`
+            )
         );
     }
 }
 
+
 async function cargarSolicitudesPendientes() {
-    const contenedor = document.getElementById("lista-pendientes");
-    contenedor.replaceChildren(crearParrafo("Cargando solicitudes..."));
+
+    const contenedor =
+        document.getElementById("lista-pendientes");
+
+    contenedor.replaceChildren(
+        crearParrafo("Cargando solicitudes...")
+    );
 
     try {
         const solicitudes = await consultarAPI(
@@ -181,45 +284,103 @@ async function cargarSolicitudesPendientes() {
         contenedor.replaceChildren();
 
         if (solicitudes.length === 0) {
-            contenedor.appendChild(
-                crearParrafo("No hay solicitudes pendientes.")
+            const vacio = crearParrafo(
+                "No hay solicitudes pendientes."
             );
+
+            vacio.className = "estado-vacio-solicitudes";
+            contenedor.appendChild(vacio);
             return;
         }
 
         solicitudes.forEach((solicitud) => {
+
             const tarjeta = document.createElement("article");
+            tarjeta.className = "tarjeta-solicitud";
+
+            const encabezado = document.createElement("div");
+            encabezado.className = "encabezado-tarjeta-solicitud";
+
             const titulo = document.createElement("h3");
             titulo.textContent =
                 `Solicitud #${solicitud.idSolicitud}: ${solicitud.nombreMascota}`;
 
-            tarjeta.append(
+            encabezado.append(
                 titulo,
-                crearParrafo(`Adoptante: ${solicitud.nombreAdoptante}`),
-                crearParrafo(`Correo: ${solicitud.correoAdoptante}`),
-                crearParrafo(`Mensaje: ${solicitud.mensaje || "Sin mensaje"}`)
+                crearEtiquetaEstado("PENDIENTE")
             );
+
+            const datos = document.createElement("div");
+            datos.className = "datos-adoptante";
+
+            datos.append(
+                crearDatoSolicitud(
+                    "Adoptante",
+                    solicitud.nombreAdoptante
+                ),
+                crearDatoSolicitud(
+                    "Correo",
+                    solicitud.correoAdoptante
+                )
+            );
+
+            const mensaje = document.createElement("div");
+            mensaje.className = "comentario-refugio";
+
+            const tituloMensaje = document.createElement("h4");
+            tituloMensaje.textContent = "Mensaje del adoptante";
+
+            const textoMensaje = document.createElement("p");
+            textoMensaje.textContent =
+                solicitud.mensaje || "Sin mensaje";
+
+            mensaje.append(tituloMensaje, textoMensaje);
+
+            // Acciones administrativas.
+            const acciones = document.createElement("div");
+            acciones.className = "acciones-revision";
 
             const aprobar = document.createElement("button");
             aprobar.type = "button";
+            aprobar.className = "boton-aprobar";
             aprobar.textContent = "Aprobar";
-            aprobar.addEventListener("click", () =>
-                revisarSolicitud(solicitud.idSolicitud, "APROBADA")
-            );
+
+            aprobar.addEventListener("click", () => {
+                revisarSolicitud(
+                    solicitud.idSolicitud,
+                    "APROBADA"
+                );
+            });
 
             const rechazar = document.createElement("button");
             rechazar.type = "button";
+            rechazar.className = "boton-rechazar";
             rechazar.textContent = "Rechazar";
-            rechazar.addEventListener("click", () =>
-                revisarSolicitud(solicitud.idSolicitud, "RECHAZADA")
+
+            rechazar.addEventListener("click", () => {
+                revisarSolicitud(
+                    solicitud.idSolicitud,
+                    "RECHAZADA"
+                );
+            });
+
+            acciones.append(aprobar, rechazar);
+
+            tarjeta.append(
+                encabezado,
+                datos,
+                mensaje,
+                acciones
             );
 
-            tarjeta.append(aprobar, rechazar);
             contenedor.appendChild(tarjeta);
         });
+
     } catch (error) {
         contenedor.replaceChildren(
-            crearParrafo(`No se pudieron cargar: ${error.message}`)
+            crearParrafo(
+                `No se pudieron cargar las solicitudes: ${error.message}`
+            )
         );
     }
 }

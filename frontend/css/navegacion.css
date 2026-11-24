@@ -1,0 +1,80 @@
+/* ==========================================
+   PAWMATCH - NAVEGACIÓN UNIFICADA
+========================================== */
+
+.encabezado .nav-unificada {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.nav-unificada .nav-enlace {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 18px;
+    border-radius: 10px;
+
+    color: #7953a3;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-unificada .nav-enlace:hover {
+    background-color: #f1e8f9;
+}
+
+.nav-unificada .nav-enlace.nav-activo {
+    background-color: #7953a3;
+    color: #ffffff;
+}
+
+.nav-unificada .nav-cerrar-sesion {
+    padding: 12px 20px;
+    border: 1px solid #7953a3;
+    border-radius: 10px;
+
+    background-color: #ffffff;
+    color: #7953a3;
+
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-unificada .nav-cerrar-sesion:hover {
+    background-color: #7953a3;
+    color: #ffffff;
+}
+
+.encabezado .nav-unificada [hidden] {
+    display: none !important;
+}
+
+@media (max-width: 760px) {
+    .encabezado {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .encabezado .nav-unificada {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-unificada .nav-enlace,
+    .nav-unificada .nav-cerrar-sesion {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}

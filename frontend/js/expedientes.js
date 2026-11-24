@@ -24,6 +24,37 @@ const botonGuardar = document.getElementById("boton-guardar-expediente");
 
 // Guarda el expediente cargado actualmente.
 let expedienteActual = null;
+// Identifica si estamos editando un registro existente.
+let registroEnEdicion = null;
+// Usuario identificado mediante el login de PawMatch.
+let usuarioActual = null;
+
+try {
+    usuarioActual = JSON.parse(
+        sessionStorage.getItem("usuarioActual") || "null"
+    );
+} catch (error) {
+    console.error("No se pudo leer el usuario actual:", error);
+}
+
+const esAdministrador =
+    usuarioActual?.nombreRol === "ADMINISTRADOR";
+
+// Elementos del nuevo formulario.
+const botonAgregarSeguimiento =
+    document.getElementById("boton-agregar-seguimiento");
+
+const formularioSeguimiento =
+    document.getElementById("form-seguimiento");
+
+const botonCancelarSeguimiento =
+    document.getElementById("boton-cancelar-seguimiento");
+
+const botonGuardarSeguimiento =
+    document.getElementById("boton-guardar-seguimiento");
+
+const mensajeSeguimiento =
+    document.getElementById("mensaje-seguimiento");
 
 
 // 2. MENSAJES
@@ -200,10 +231,12 @@ function mostrarFormularioCreacion() {
 
     botonEditar.hidden = true;
     botonCancelar.hidden = true;
+    botonAgregarSeguimiento.hidden = true;
+    formularioSeguimiento.hidden = true;
 
     campoObservaciones.value = "";
     botonGuardar.textContent = "Crear expediente";
-    formularioExpediente.hidden = false;
+    formularioExpediente.hidden = !esAdministrador;
 }
 
 
@@ -223,14 +256,17 @@ function mostrarExpedienteExistente(expediente) {
     observaciones.hidden = false;
 
     formularioExpediente.hidden = true;
-    botonEditar.hidden = false;
+    botonEditar.hidden = !esAdministrador;
     botonCancelar.hidden = true;
+    botonAgregarSeguimiento.hidden = !esAdministrador;
+    formularioSeguimiento.hidden = true;
 }
 
 
 // 8. EDITAR OBSERVACIONES
 
 function activarEdicion() {
+    if (!esAdministrador) return;
     if (!expedienteActual) return;
 
     campoObservaciones.value =
@@ -257,7 +293,7 @@ function cancelarEdicion() {
 
 async function guardarExpediente(evento) {
     evento.preventDefault();
-
+    if (!esAdministrador) return;
     const observaciones = campoObservaciones.value.trim();
 
     // Determinar si se crea o actualiza el expediente.
@@ -401,6 +437,37 @@ async function cargarHistorialSeguimiento(idExpediente) {
                 tarjeta.appendChild(proximaFecha);
             }
 
+// Acciones disponibles únicamente para administradores.
+if (esAdministrador) {
+
+    const acciones = document.createElement("div");
+    acciones.className = "acciones-registro";
+
+    const botonEditarRegistro = document.createElement("button");
+    botonEditarRegistro.type = "button";
+    botonEditarRegistro.className = "boton-editar-registro";
+    botonEditarRegistro.textContent = "✏️ Editar";
+
+    botonEditarRegistro.addEventListener("click", () => {
+        editarRegistroSeguimiento(registro);
+    });
+
+    const botonEliminarRegistro = document.createElement("button");
+    botonEliminarRegistro.type = "button";
+    botonEliminarRegistro.className = "boton-eliminar-registro";
+    botonEliminarRegistro.textContent = "🗑️ Eliminar";
+
+    botonEliminarRegistro.addEventListener("click", () => {
+        eliminarRegistroSeguimiento(registro);
+    });
+
+    acciones.append(
+        botonEditarRegistro,
+        botonEliminarRegistro
+    );
+
+    tarjeta.appendChild(acciones);
+}
             lista.appendChild(tarjeta);
         });
 
@@ -418,12 +485,239 @@ async function cargarHistorialSeguimiento(idExpediente) {
     }
 }
 
+function abrirFormularioSeguimiento() {
+
+    if (!esAdministrador || !expedienteActual) return;
+
+    registroEnEdicion = null;
+    formularioSeguimiento.reset();
+    formularioSeguimiento.hidden = false;
+    botonAgregarSeguimiento.hidden = true;
+
+    botonGuardarSeguimiento.textContent = "Guardar registro";
+
+    document.querySelector(".form-seguimiento h3").textContent =
+        "Registrar evento de seguimiento";
+
+    mostrarMensaje(mensajeSeguimiento, "");
+
+    document.getElementById("seguimiento-tipo").focus();
+}
+
+function editarRegistroSeguimiento(registro) {
+
+    if (!esAdministrador || !expedienteActual) return;
+
+    registroEnEdicion = registro.idRegistro;
+
+    document.getElementById("seguimiento-tipo").value =
+        registro.tipo;
+
+    document.getElementById("seguimiento-nombre").value =
+        registro.nombre || "";
+
+    document.getElementById("seguimiento-fecha").value =
+        registro.fechaEvento || "";
+
+    document.getElementById("seguimiento-proxima").value =
+        registro.proximaFecha || "";
+
+    document.getElementById("seguimiento-peso").value =
+        registro.pesoKg ?? "";
+
+    document.getElementById("seguimiento-veterinario").value =
+        registro.veterinario || "";
+
+    document.getElementById("seguimiento-descripcion").value =
+        registro.descripcion || "";
+
+    formularioSeguimiento.hidden = false;
+    botonAgregarSeguimiento.hidden = true;
+
+    botonGuardarSeguimiento.textContent = "Guardar cambios";
+
+    document.querySelector(".form-seguimiento h3").textContent =
+        "Editar registro de seguimiento";
+
+    mostrarMensaje(mensajeSeguimiento, "");
+
+    formularioSeguimiento.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+// Cancelar el registro.
+function cancelarFormularioSeguimiento() {
+
+    registroEnEdicion = null;
+    formularioSeguimiento.reset();
+    formularioSeguimiento.hidden = true;
+
+    botonGuardarSeguimiento.textContent = "Guardar registro";
+
+    document.querySelector(".form-seguimiento h3").textContent =
+        "Registrar evento de seguimiento";
+
+    botonAgregarSeguimiento.hidden =
+        !esAdministrador || !expedienteActual;
+}
+
+
+// Enviar los datos al backend.
+async function guardarRegistroSeguimiento(evento) {
+
+    evento.preventDefault();
+
+    if (!esAdministrador || !expedienteActual) return;
+
+    const idUsuario = Number(usuarioActual?.idUsuario);
+
+    if (!Number.isSafeInteger(idUsuario) || idUsuario <= 0) {
+        mostrarMensaje(
+            mensajeSeguimiento,
+            "No se encontró un usuario válido.",
+            "error"
+        );
+        return;
+    }
+
+    const obtenerValor = (id) =>
+        document.getElementById(id).value.trim();
+
+    const peso = obtenerValor("seguimiento-peso");
+
+    const datos = {
+        tipo: obtenerValor("seguimiento-tipo"),
+        nombre: obtenerValor("seguimiento-nombre"),
+        fechaEvento: obtenerValor("seguimiento-fecha"),
+        descripcion: obtenerValor("seguimiento-descripcion"),
+        pesoKg: peso === "" ? null : Number(peso),
+        veterinario: obtenerValor("seguimiento-veterinario"),
+        proximaFecha: obtenerValor("seguimiento-proxima") || null
+    };
+
+    const esEdicion = registroEnEdicion !== null;
+
+    // Al crear sí necesitamos asociar expediente y usuario.
+    if (!esEdicion) {
+        datos.idExpediente = expedienteActual.idExpediente;
+        datos.idUsuarioRegistro = idUsuario;
+    }
+
+    const url = esEdicion
+        ? `${API_SEGUIMIENTO}/${registroEnEdicion}`
+        : API_SEGUIMIENTO;
+
+    const metodo = esEdicion ? "PUT" : "POST";
+
+    botonGuardarSeguimiento.disabled = true;
+
+    mostrarMensaje(
+        mensajeSeguimiento,
+        esEdicion
+            ? "Actualizando registro..."
+            : "Guardando registro..."
+    );
+
+    try {
+        const respuesta = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        });
+
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP ${respuesta.status}`);
+        }
+
+        cancelarFormularioSeguimiento();
+
+        await cargarHistorialSeguimiento(
+            expedienteActual.idExpediente
+        );
+
+        mostrarMensaje(
+            mensajeSeguimiento,
+            esEdicion
+                ? "El registro se actualizó correctamente."
+                : "El registro se guardó correctamente.",
+            "exito"
+        );
+
+    } catch (error) {
+        console.error("Error al guardar seguimiento:", error);
+
+        mostrarMensaje(
+            mensajeSeguimiento,
+            "No fue posible guardar los cambios.",
+            "error"
+        );
+
+    } finally {
+        botonGuardarSeguimiento.disabled = false;
+    }
+}
+
+async function eliminarRegistroSeguimiento(registro) {
+
+    if (!esAdministrador || !expedienteActual) return;
+
+    const confirmar = window.confirm(
+        `¿Estás seguro de eliminar el registro "${registro.nombre}"?\n\n` +
+        "Esta acción no se puede deshacer."
+    );
+
+    if (!confirmar) return;
+
+    try {
+        const respuesta = await fetch(
+            `${API_SEGUIMIENTO}/${registro.idRegistro}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP ${respuesta.status}`);
+        }
+
+        if (registroEnEdicion === registro.idRegistro) {
+            cancelarFormularioSeguimiento();
+        }
+
+        await cargarHistorialSeguimiento(
+            expedienteActual.idExpediente
+        );
+
+        mostrarMensaje(
+            mensajeSeguimiento,
+            "El registro se eliminó correctamente.",
+            "exito"
+        );
+
+    } catch (error) {
+        console.error("Error al eliminar registro:", error);
+
+        mostrarMensaje(
+            mensajeSeguimiento,
+            "No fue posible eliminar el registro.",
+            "error"
+        );
+    }
+}
 
 // 10. EVENTOS
 
 botonEditar.addEventListener("click", activarEdicion);
 botonCancelar.addEventListener("click", cancelarEdicion);
 formularioExpediente.addEventListener("submit", guardarExpediente);
+
+botonAgregarSeguimiento.addEventListener("click", abrirFormularioSeguimiento);
+botonCancelarSeguimiento.addEventListener("click", cancelarFormularioSeguimiento);
+formularioSeguimiento.addEventListener("submit", guardarRegistroSeguimiento);
 
 // Cargar la información cuando se abra la página.
 cargarExpediente();

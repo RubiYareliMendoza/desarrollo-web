@@ -4,7 +4,18 @@
 
 const API_MASCOTAS = "http://localhost:8080/api/mascotas";
 const URL_BACKEND = new URL(API_MASCOTAS).origin;
+// Obtener la URL de una fotografía, ya sea estática o del backend.
+function obtenerUrlImagen(ruta) {
+    if (!ruta) return "";
 
+    // Las imágenes estáticas están dentro del frontend.
+    if (ruta.startsWith("img/mascotas/")) {
+        return new URL(ruta, document.baseURI).href;
+    }
+
+    // Las imágenes subidas se obtienen desde Spring Boot.
+    return new URL(ruta, URL_BACKEND).href;
+}
 const usuarioActual = JSON.parse(
     sessionStorage.getItem("usuarioActual") || "null"
 );
@@ -230,10 +241,7 @@ function mostrarMascotas(mascotas) {
 
         // Mostrar la imagen real o el espacio alternativo.
         if (mascota.imagenPrincipalUrl) {
-            imagen.src = new URL(
-                mascota.imagenPrincipalUrl,
-                URL_BACKEND
-            ).href;
+            imagen.src = obtenerUrlImagen(mascota.imagenPrincipalUrl);
         } else {
             imagen.hidden = true;
             imagenAlternativa.hidden = false;
@@ -438,11 +446,7 @@ function abrirDetallesMascota(mascota) {
 
     if (mascota.imagenPrincipalUrl) {
         // Mostrar la fotografía guardada.
-        imagen.src = new URL(
-            mascota.imagenPrincipalUrl,
-            URL_BACKEND
-        ).href;
-
+        imagen.src = obtenerUrlImagen(mascota.imagenPrincipalUrl);
         imagen.hidden = false;
 
     } else {
@@ -785,16 +789,12 @@ function abrirFormularioEdicion(mascota) {
     );
 
     if (mascota.imagenPrincipalUrl) {
-        imagenActual.src = new URL(
-            mascota.imagenPrincipalUrl,
-            URL_BACKEND
-        ).href;
+    imagenActual.src = obtenerUrlImagen(mascota.imagenPrincipalUrl);
+    imagenActual.alt = `Fotografía actual de ${mascota.nombre}`;
+    imagenActual.hidden = false;
 
-        imagenActual.alt = `Fotografía actual de ${mascota.nombre}`;
-        imagenActual.hidden = false;
-
-        textoImagenActual.textContent =
-            "Esta es la fotografía guardada. Solo selecciona otra si deseas cambiarla.";
+    textoImagenActual.textContent =
+        "Esta es la fotografía guardada. Solo selecciona otra si deseas cambiarla.";
 
     } else {
         imagenActual.removeAttribute("src");
